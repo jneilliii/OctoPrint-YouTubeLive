@@ -14,5 +14,5 @@ or manually using this URL:
 Initial upload requires for a file dragon.stl file to be uploaded.
 
 ## TODO:
-Need to intgrate filelisting in pull-down, filtered for stl files only.
-Test
+* Need to intgrate filelisting in pull-down, filtered for stl files only.
+* Test
