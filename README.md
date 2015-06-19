@@ -4,9 +4,9 @@
 
 ## Setup
 
-manually using pip and this URL:
+manually:
 
-    https://github.com/jneilliii/OctoPrint-STLViewer/archive/master.zip
+    pip install https://github.com/jneilliii/OctoPrint-STLViewer/archive/master.zip
 
 ## Configuration
 
