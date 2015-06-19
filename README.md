@@ -1,11 +1,10 @@
 # OctoPrint-STLViewer
 
-**Overview:** A simple stl viewer tab for OctoPrint. Currently a work in progress and simple skeleton.  Based on the Javascript STL Viewer located [here](https://code.google.com/p/jsc3d/).
+**Overview:** A simple stl viewer tab for OctoPrint. Currently a work in progress and simple skeleton.  Based on the Javascript STL Viewer located [here](https://code.google.com/p/jsc3d/). Currently tested with Octoprint running on Raspberry Pi and Google Chrome.
 
 ## Setup
 
-Install via the bundled [Plugin Manager](https://github.com/foosel/OctoPrint/wiki/Plugin:-Plugin-Manager)
-or manually using this URL:
+manually using pip and this URL:
 
     https://github.com/jneilliii/OctoPrint-STLViewer/archive/master.zip
 
