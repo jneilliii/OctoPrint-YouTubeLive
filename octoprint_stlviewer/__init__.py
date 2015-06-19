@@ -15,8 +15,7 @@ class stlviewer(octoprint.plugin.StartupPlugin,
 		return dict(url="http://github.com/jneilliii/Octoprint-STLViewer")
 
 	def get_template_configs(self):
-		return [
-		]
+		return []
 
 	def get_assets(self):
 		return dict(
