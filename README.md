@@ -1,17 +1,18 @@
-# OctoPrint-Helloworld
+# OctoPrint-STLViewer
 
-**TODO:** Describe what your plugin does.
+**Overview:** A simple stl viewer tab for OctoPrint. Currently a work in progress and simple skeleton.
 
 ## Setup
 
 Install via the bundled [Plugin Manager](https://github.com/foosel/OctoPrint/wiki/Plugin:-Plugin-Manager)
 or manually using this URL:
 
-    https://github.com/yourGithubName/OctoPrint-Helloworld/archive/master.zip
-
-**TODO:** Describe how to install your plugin, if more needs to be done than just installing it via pip or through
-the plugin manager.
+    https://github.com/jneilliii/OctoPrint-STLViewer/archive/master.zip
 
 ## Configuration
 
-**TODO:** Describe your plugin's configuration options (if any).
+Initial upload requires for a file dragon.stl file to be uploaded.
+
+## TODO:
+Need to intgrate filelisting in pull-down, filtered for stl files only.
+Test
