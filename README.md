@@ -6,7 +6,7 @@
 
 manually:
 
-    pip install https://github.com/jneilliii/OctoPrint-STLViewer/archive/master.zip
+    sudo pip install https://github.com/jneilliii/OctoPrint-STLViewer/archive/master.zip
 
 ## Configuration
 
