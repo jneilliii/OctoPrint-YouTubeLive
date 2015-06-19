@@ -12,7 +12,7 @@ class stlviewer(octoprint.plugin.StartupPlugin,
 		self._logger.info("STL Viewer loaded!")
 
 	def get_settings_defaults(self):
-		return dict(url="http://github.com/jneilliii/Octoprint-STLViewer")
+		return dict(url="http://github.com/jneilliii/Octoprint-STLViewer",files=self._file_manager.storage.list_files(path=None, filter=*.stl, recursive=False))
 
 	def get_template_configs(self):
 		return [
