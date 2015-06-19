@@ -19,9 +19,6 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		// setup and activate the console singleton
-		JSC3D.console.setup('main_frame', '120px');
-
 		var canvas = document.getElementById('cv');
 		var viewer = new JSC3D.Viewer(canvas);
 		var logoTimerID = 0;
@@ -55,19 +52,15 @@
 			switch(modes.selectedIndex) {
 			case 0:
 				viewer.setRenderMode('point');
-				JSC3D.console.logInfo('Set to point mode.');
 				break;
 			case 1:
 				viewer.setRenderMode('wireframe');
-				JSC3D.console.logInfo('Set to wireframe mode.');
 				break;
 			case 2:
 				viewer.setRenderMode('flat');
-				JSC3D.console.logInfo('Set to flat mode.');
 				break;
 			case 3:
 				viewer.setRenderMode('smooth');
-				JSC3D.console.logInfo('Set to smooth mode.');
 				break;
 			default:
 				viewer.setRenderMode('flat');
