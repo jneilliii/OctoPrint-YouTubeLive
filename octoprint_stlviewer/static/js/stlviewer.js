@@ -6,22 +6,22 @@ $(function() {
         self.settings = parameters[1];
 
         // this will hold the URL currently displayed by the iframe
-        self.currentUrl = ko.observable();
+/*         self.currentUrl = ko.observable(); */
 
         // this will hold the URL entered in the text field
-        self.newUrl = ko.observable();
+/*         self.newUrl = ko.observable(); */
 
         // this will be called when the user clicks the "Go" button and set the iframe's URL to the entered URL
-        self.goToUrl = function() {
+/*         self.goToUrl = function() {
             self.currentUrl(self.newUrl());
-        };
+        }; */
 
         // This will get called before the HelloWorldViewModel gets bound to the DOM, but after its depedencies have
         // already been initialized. It is especially guaranteed that this method gets called _after_ the settings
         // have been retrieved from the OctoPrint backend and thus the SettingsViewModel been properly populated.
         self.onBeforeBinding = function() {
-            self.newUrl(self.settings.settings.plugins.stlviewer.url());
-            self.goToUrl();
+/*             self.newUrl(self.settings.settings.plugins.stlviewer.url());
+            self.goToUrl(); */
         }
     }
 
