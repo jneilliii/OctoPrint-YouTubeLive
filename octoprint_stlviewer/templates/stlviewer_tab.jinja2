@@ -2,7 +2,6 @@
 		<script type="text/javascript" src="/plugin/stlviewer/static/js/jsc3d.js"></script>
 		<script type="text/javascript" src="/plugin/stlviewer/static/js/jsc3d.touch.js"></script>
 		<script type="text/javascript" src="/plugin/stlviewer/static/js/jsc3d.console.js"></script>
-		<script type="text/javascript" src="/plugin/stlviewer/static/js/sonic.js"></script>
 		
 		<canvas id="cv" style="border: 1px solid;" width="588" height="368" ></canvas>
 		<div id="statistics" style="position:absolute; width:100px; height:50px; left:10px; top:10px; font:12px Courier New; color:red; background:transparent;"></div>
@@ -71,16 +70,6 @@
 			case 3:
 				viewer.setRenderMode('smooth');
 				JSC3D.console.logInfo('Set to smooth mode.');
-				break;
-			case 4:
-				viewer.setRenderMode('texturesmooth');
-				var scene = viewer.getScene();
-				if(scene) {
-					var objects = scene.getChildren();
-					for(var i=0; i<objects.length; i++)
-						objects[i].isEnvironmentCast = true;
-				}
-				JSC3D.console.logInfo('Set to environment-mapping mode.');
 				break;
 			default:
 				viewer.setRenderMode('flat');
