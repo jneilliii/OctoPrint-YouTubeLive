@@ -9,10 +9,10 @@ class stlviewer(octoprint.plugin.StartupPlugin,
                        octoprint.plugin.AssetPlugin):
 					   
 	def on_after_startup(self):
-		self._logger.info("Hello World! (more: %s)" % self._settings.get(["url"]))
+		self._logger.info("STL Viewer loaded!")
 
 	def get_settings_defaults(self):
-		return dict(url="https://en.wikipedia.org/wiki/Hello_world")
+		return dict(url="http://github.com/jneilliii/Octoprint-STLViewer")
 
 	def get_template_configs(self):
 		return [
@@ -25,5 +25,5 @@ class stlviewer(octoprint.plugin.StartupPlugin,
 			less=["less/stlviewer.less"]
 		)
 
-__plugin_name__ = "OctoPrint-STLViewer"
+__plugin_name__ = "STL Viewer"
 __plugin_implementation__ = stlviewer()
