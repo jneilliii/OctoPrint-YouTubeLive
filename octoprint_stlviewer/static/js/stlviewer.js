@@ -6,7 +6,7 @@ $(function() {
         self.settings = parameters[1];
 		self.files = parameters[2].listHelper;
 		
-		self.FileList = ko.observable();
+		self.FileList = ko.observableArray();
 		self.RenderModes = ko.observableArray(['render as points','render as wireframe','render as flat','render as smooth']);
 		
 		self.canvas = document.getElementById('cv');
@@ -38,7 +38,7 @@ $(function() {
 		self.loadModel = function() {
 			self.viewer.replaceSceneFromUrl('/downloads/files/local/' + self.models[self.models.selectedIndex].value);
 			self.viewer.update();
-		}		
+		}
 
         // This will get called before the stlviewerViewModel gets bound to the DOM, but after its depedencies have
         // already been initialized. It is especially guaranteed that this method gets called _after_ the settings
