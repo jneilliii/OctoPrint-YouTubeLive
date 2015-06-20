@@ -10,7 +10,7 @@ $(function() {
 		self.RenderModes = ko.observableArray(['render as points','render as wireframe','render as flat','render as smooth']);
 		
 		self.canvas = document.getElementById('cv');
-		self.viewer = new JSC3D.Viewer(canvas);
+		self.viewer = new JSC3D.Viewer(self.canvas);
 		self.models = document.getElementById('#stlviewer_file_list');
 		self.modes = document.getElementById('render_mode_list');
 		
