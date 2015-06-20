@@ -10,8 +10,7 @@ manually:
 
 ## Configuration
 
-Initial upload requires for a file dragon.stl file to be uploaded.
-
 ## TODO:
-* Need to intgrate filelisting in pull-down, filtered for stl files only.
-* Test
+* Filter file list pull-down for stl files only.
+* Sort file list pull-down.
+* Dynamically update when new files are uploaded.
