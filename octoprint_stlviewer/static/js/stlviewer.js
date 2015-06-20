@@ -1,9 +1,11 @@
 $(function() {
-    function stlviewer(parameters) {
+    function stlviewerViewModel(parameters) {
         var self = this;
 
         self.loginState = parameters[0];
         self.settings = parameters[1];
+		
+		self.getFileList = self.listHelper.items();
 
         // this will hold the URL currently displayed by the iframe
 /*         self.currentUrl = ko.observable(); */
@@ -29,7 +31,7 @@ $(function() {
     // the global variable ADDITIONAL_VIEWMODELS
     ADDITIONAL_VIEWMODELS.push([
         // This is the constructor to call for instantiating the plugin
-        stlviewer,
+        stlviewerViewModel,
 
         // This is a list of dependencies to inject into the plugin, the order which you request here is the order
         // in which the dependencies will be injected into your view model upon instantiation via the parameters
@@ -37,6 +39,6 @@ $(function() {
         ["loginStateViewModel", "settingsViewModel", "gcodeFilesViewModel"],
 
         // Finally, this is the list of all elements we want this view model to be bound to.
-        [document.getElementById("tab_plugin_stlviewer")]
+        [("#tab_plugin_stlviewer")]
     ]);
 });

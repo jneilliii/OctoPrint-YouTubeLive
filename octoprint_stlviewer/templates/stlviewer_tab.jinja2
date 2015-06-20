@@ -4,7 +4,7 @@
 		
 		<canvas id="cv" style="border: 1px solid;" width="588" height="368" ></canvas>
 		<div class="row-fluid">
-		<select id="files_template_model" data-bind="options: files.files.plugins.stlviewer.listHelper.items(),optionsText: name,value: name"></select>		
+		<select id="files_template_model" data-bind="options: getFileList,optionsText: name,value: name"></select>		
 		<button id="load" onclick="loadModel();" class="btn">Load</button>
 		<select id="render_mode_list">
 		<option>render as points</option>
