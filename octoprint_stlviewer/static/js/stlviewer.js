@@ -38,7 +38,7 @@ $(function() {
 				logoTimerID = 0;
 				viewer.enableDefaultInputHandler(true);
 			}
-			var models = $('select#files_template_model');
+			var models = $('#stlviewer_file_list');
 			viewer.replaceSceneFromUrl('/downloads/files/local/' + models[models.selectedIndex].value);
 			viewer.update();
 		}		

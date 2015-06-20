@@ -4,7 +4,7 @@
 		
 		<canvas id="cv" style="border: 1px solid;" width="588" height="368" ></canvas>
 		<div class="row-fluid">
-		<select id="files_template_model" data-bind="options: FileList,optionsText: 'name',optionsValue: 'refs.download'"></select>
+		<select id="stlviewer_file_list" data-bind="options: FileList,optionsText: 'name',optionsValue: 'refs.download'"></select>
 		<button class="btn" data-bind="click: loadModel">{{ _('Load') }}</button>
 		<select id="render_mode_list">
 		<option>render as points</option>
@@ -12,7 +12,7 @@
 		<option>render as flat</option>
 		<option selected>render as smooth</option>
 		</select>
-		<button id="change" onclick="setRenderMode();" class="btn">Change</button>
+		<button id="change" class="btn" data-bind="click: setRenderMode">{{ _('Change') }}</button>
 		</div>
 	</div>
 	<script type="text/javascript">
