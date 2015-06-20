@@ -4,10 +4,7 @@
 		
 		<canvas id="cv" style="border: 1px solid;" width="588" height="368" ></canvas>
 		<div class="row-fluid">
-		<script type="text/html" id="files_template_model">
-			<select id="model_list" data-bind="options: self.listHelper.items(),optionsText: name,value: name"></select>
-		</script>
-		
+		<select id="files_template_model" data-bind="options: self.listHelper.items(),optionsText: name,value: name"></select>		
 		<button id="load" onclick="loadModel();" class="btn">Load</button>
 		<select id="render_mode_list">
 		<option>render as points</option>
@@ -40,7 +37,7 @@
 				logoTimerID = 0;
 				viewer.enableDefaultInputHandler(true);
 			}
-			var models = document.getElementById('model_list');
+			var models = document.getElementById('files_template_model');
 			viewer.replaceSceneFromUrl('/downloads/files/local/' + models[models.selectedIndex].innerHTML);
 			viewer.update();
 		}
