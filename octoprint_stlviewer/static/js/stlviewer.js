@@ -14,7 +14,8 @@ $(function() {
         // have been retrieved from the OctoPrint backend and thus the SettingsViewModel been properly populated.
         self.onBeforeBinding = function() {
 			self.FileList(self.files.listHelper.items());
-			self.FirstFile(self.files.listHelper.items()[0]);
+			//self.FirstFile(self.files.listHelper.items()[0][0]);
+			console.log(self.files.listHelper.items());
         }
     }
 
