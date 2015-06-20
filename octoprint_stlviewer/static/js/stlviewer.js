@@ -4,7 +4,7 @@ $(function() {
 
         self.loginState = parameters[0];
         self.settings = parameters[1];
-		self.files = parameters[2];
+		self.files = parameters[2].listHelper.items();
 		
 		self.FileList = ko.observable();
 
@@ -12,10 +12,8 @@ $(function() {
         // already been initialized. It is especially guaranteed that this method gets called _after_ the settings
         // have been retrieved from the OctoPrint backend and thus the SettingsViewModel been properly populated.
         self.onBeforeBinding = function() {
-			self.FileList(self.listHelper.items());
+			self.FileList(files);
         }
-		
-		self.listHelper = files.listHelper;
     }
 
     // This is how our plugin registers itself with the application, by adding some configuration information to
