@@ -5,7 +5,7 @@
 		<canvas id="cv" style="border: 1px solid;" width="588" height="368" ></canvas>
 		<div class="row-fluid">
 		<select id="files_template_model" data-bind="options: FileList,optionsText: 'name',optionsValue: 'refs.download'"></select>
-		<button id="load" onclick="loadModel();" class="btn">Load</button>
+		<button class="btn" data-bind="click: loadModel">{{ _('Load') }}</button>
 		<select id="render_mode_list">
 		<option>render as points</option>
 		<option>render as wireframe</option>
