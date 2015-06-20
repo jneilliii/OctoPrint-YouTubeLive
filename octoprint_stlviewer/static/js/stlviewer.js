@@ -2,12 +2,9 @@ $(function() {
     function stlviewerViewModel(parameters) {
         var self = this;
 
-        self.loginState = parameters[0];
-        self.settings = parameters[1];
-		self.files = parameters[2].listHelper;
-		
-		self.FileList = ko.observableArray();
-		self.RenderModes = ko.observableArray(['render as points','render as wireframe','render as flat','render as smooth']);
+		self.files = parameters[0].listHelper;
+		self.FileList = ko.observableArray(self.files.items());
+		self.RenderModes = ko.observableArray(['render as smooth','render as flat','render as wireframe','render as points']);
 		
 		self.canvas = document.getElementById('cv');
 		self.viewer = new JSC3D.Viewer(self.canvas);
@@ -45,8 +42,6 @@ $(function() {
         // have been retrieved from the OctoPrint backend and thus the SettingsViewModel been properly populated.
         self.onBeforeBinding = function() {
 			self.FileList(self.files.items());
-			//console.log(self.files.items());
-
 			self.viewer.setParameter('SceneUrl', '');
 			self.viewer.setParameter('InitRotationX', 20);
 			self.viewer.setParameter('InitRotationY', 20);
@@ -70,7 +65,7 @@ $(function() {
         // This is a list of dependencies to inject into the plugin, the order which you request here is the order
         // in which the dependencies will be injected into your view model upon instantiation via the parameters
         // argument
-        ["loginStateViewModel", "settingsViewModel", "gcodeFilesViewModel"],
+        ["gcodeFilesViewModel"],
 
         // Finally, this is the list of all elements we want this view model to be bound to.
         [("#tab_plugin_stlviewer")]
