@@ -38,7 +38,7 @@
 				viewer.enableDefaultInputHandler(true);
 			}
 			var models = document.getElementById('files_template_model');
-			viewer.replaceSceneFromUrl('/downloads/files/local/' + models[models.selectedIndex].innerHTML);
+			viewer.replaceSceneFromUrl('/downloads/files/local/' + models[models.selectedIndex].value);
 			viewer.update();
 		}
 
