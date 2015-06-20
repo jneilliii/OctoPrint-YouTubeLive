@@ -4,20 +4,14 @@ from __future__ import absolute_import
 import octoprint.plugin
 
 class stlviewer(octoprint.plugin.StartupPlugin,
-                       octoprint.plugin.TemplatePlugin,
-                       octoprint.plugin.SettingsPlugin,
-                       octoprint.plugin.AssetPlugin):
+				octoprint.plugin.TemplatePlugin,
+				octoprint.plugin.AssetPlugin):
 					   
 	def on_after_startup(self):
 		self._logger.info("STL Viewer loaded!")
 
-	def get_settings_defaults(self):
-		return dict(url="http://github.com/jneilliii/Octoprint-STLViewer")
-
 	def get_template_configs(self):
-		return [
-			dict(type="settings", custom_bindings=False)
-		]
+		return []
 
 	def get_assets(self):
 		return dict(
