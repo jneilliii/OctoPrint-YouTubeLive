@@ -15,7 +15,7 @@ $(function() {
 			self.FileList(self.listHelper.items());
         }
 		
-		self.listHelper = files.listHelper();
+		self.listHelper = files.listHelper;
     }
 
     // This is how our plugin registers itself with the application, by adding some configuration information to
