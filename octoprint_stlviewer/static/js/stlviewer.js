@@ -6,7 +6,7 @@ $(function() {
         self.settings = parameters[1];
 		self.files = parameters[2].listHelper;
 		
-		self.FileList = ko.observableArray();
+		self.FileList = ko.observableArray(self.files.items());
 		self.RenderModes = ko.observableArray(['render as points','render as wireframe','render as flat','render as smooth']);
 		
 		self.canvas = document.getElementById('cv');
