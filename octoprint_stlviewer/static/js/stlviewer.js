@@ -17,27 +17,27 @@ $(function() {
 		self.setRenderMode = function() {
 			switch(modes.selectedIndex) {
 			case 0:
-				viewer.setRenderMode('point');
+				self.viewer.setRenderMode('point');
 				break;
 			case 1:
-				viewer.setRenderMode('wireframe');
+				self.viewer.setRenderMode('wireframe');
 				break;
 			case 2:
-				viewer.setRenderMode('flat');
+				self.viewer.setRenderMode('flat');
 				break;
 			case 3:
-				viewer.setRenderMode('smooth');
+				self.viewer.setRenderMode('smooth');
 				break;
 			default:
-				viewer.setRenderMode('flat');
+				self.viewer.setRenderMode('flat');
 				break;
 			}
-			viewer.update();
+			self.viewer.update();
 		}	
 
 		self.loadModel = function() {
-			viewer.replaceSceneFromUrl('/downloads/files/local/' + models[models.selectedIndex].value);
-			viewer.update();
+			self.viewer.replaceSceneFromUrl('/downloads/files/local/' + models[models.selectedIndex].value);
+			self.viewer.update();
 		}		
 
         // This will get called before the stlviewerViewModel gets bound to the DOM, but after its depedencies have
@@ -47,17 +47,17 @@ $(function() {
 			self.FileList(self.files.items());
 			//console.log(self.files.items());
 
-			viewer.setParameter('SceneUrl', '/downloads/files/local/dragon.stl');
-			viewer.setParameter('InitRotationX', 20);
-			viewer.setParameter('InitRotationY', 20);
-			viewer.setParameter('InitRotationZ', 0);
-			viewer.setParameter('ModelColor', '#CAA618');
-			viewer.setParameter('BackgroundColor1', '#000000');
-			viewer.setParameter('BackgroundColor2', '#6A6AD4');
-			viewer.setParameter('RenderMode', 'smooth');
-			viewer.setParameter('ProgressBar', 'on');
-			viewer.init();
-			viewer.update();
+			self.viewer.setParameter('SceneUrl', '/downloads/files/local/dragon.stl');
+			self.viewer.setParameter('InitRotationX', 20);
+			self.viewer.setParameter('InitRotationY', 20);
+			self.viewer.setParameter('InitRotationZ', 0);
+			self.viewer.setParameter('ModelColor', '#CAA618');
+			self.viewer.setParameter('BackgroundColor1', '#000000');
+			self.viewer.setParameter('BackgroundColor2', '#6A6AD4');
+			self.viewer.setParameter('RenderMode', 'smooth');
+			self.viewer.setParameter('ProgressBar', 'on');
+			self.viewer.init();
+			self.viewer.update();
         }
     }
 
