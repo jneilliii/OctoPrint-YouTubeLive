@@ -15,7 +15,7 @@ $(function() {
 		self.modes = document.getElementById('render_mode_list');
 		
 		self.setRenderMode = function() {
-			switch(modes.selectedIndex) {
+			switch(self.modes.selectedIndex) {
 			case 0:
 				self.viewer.setRenderMode('point');
 				break;
@@ -36,7 +36,7 @@ $(function() {
 		}	
 
 		self.loadModel = function() {
-			self.viewer.replaceSceneFromUrl('/downloads/files/local/' + models[models.selectedIndex].value);
+			self.viewer.replaceSceneFromUrl('/downloads/files/local/' + self.models[self.models.selectedIndex].value);
 			self.viewer.update();
 		}		
 
