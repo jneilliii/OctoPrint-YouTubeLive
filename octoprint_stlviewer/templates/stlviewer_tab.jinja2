@@ -4,7 +4,7 @@
 		
 		<canvas id="cv" style="border: 1px solid;" width="588" height="368" ></canvas>
 		<div class="row-fluid">
-		<select id="files_template_model" data-bind="options: FileList,optionsText: 'name',optionsValue: 'name'"></select>
+		<select id="files_template_model" data-bind="options: FileList,optionsText: 'name',optionsValue: 'refs.download'"></select>
 		<button id="load" onclick="loadModel();" class="btn">Load</button>
 		<select id="render_mode_list">
 		<option>render as points</option>
@@ -30,39 +30,4 @@
 		viewer.setParameter('ProgressBar', 'on');
 		viewer.init();
 		viewer.update();
-
-		function loadModel() {
-			if(logoTimerID > 0) {
-				clearInterval(logoTimerID);
-				logoTimerID = 0;
-				viewer.enableDefaultInputHandler(true);
-			}
-			var models = $('select#files_template_model');
-			viewer.replaceSceneFromUrl('/downloads/files/local/' + models[models.selectedIndex].value);
-			viewer.update();
-		}
-
-		function setRenderMode() {
-			if(logoTimerID > 0)
-				return;
-			var modes = document.getElementById('render_mode_list');
-			switch(modes.selectedIndex) {
-			case 0:
-				viewer.setRenderMode('point');
-				break;
-			case 1:
-				viewer.setRenderMode('wireframe');
-				break;
-			case 2:
-				viewer.setRenderMode('flat');
-				break;
-			case 3:
-				viewer.setRenderMode('smooth');
-				break;
-			default:
-				viewer.setRenderMode('flat');
-				break;
-			}
-			viewer.update();
-		}
 	</script>

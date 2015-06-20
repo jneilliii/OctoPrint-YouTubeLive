@@ -7,6 +7,41 @@ $(function() {
 		self.files = parameters[2].listHelper;
 		
 		self.FileList = ko.observable();
+		
+		self.setRenderMode = function() {
+			if(logoTimerID > 0)
+				return;
+			var modes = document.getElementById('render_mode_list');
+			switch(modes.selectedIndex) {
+			case 0:
+				viewer.setRenderMode('point');
+				break;
+			case 1:
+				viewer.setRenderMode('wireframe');
+				break;
+			case 2:
+				viewer.setRenderMode('flat');
+				break;
+			case 3:
+				viewer.setRenderMode('smooth');
+				break;
+			default:
+				viewer.setRenderMode('flat');
+				break;
+			}
+			viewer.update();
+		}	
+
+		self.loadModel function() {
+			if(logoTimerID > 0) {
+				clearInterval(logoTimerID);
+				logoTimerID = 0;
+				viewer.enableDefaultInputHandler(true);
+			}
+			var models = $('select#files_template_model');
+			viewer.replaceSceneFromUrl('/downloads/files/local/' + models[models.selectedIndex].value);
+			viewer.update();
+		}		
 
         // This will get called before the HelloWorldViewModel gets bound to the DOM, but after its depedencies have
         // already been initialized. It is especially guaranteed that this method gets called _after_ the settings
