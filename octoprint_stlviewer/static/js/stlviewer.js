@@ -32,7 +32,7 @@ $(function() {
 			viewer.update();
 		}	
 
-		self.loadModel function() {
+		self.loadModel = function() {
 			if(logoTimerID > 0) {
 				clearInterval(logoTimerID);
 				logoTimerID = 0;
