@@ -2,7 +2,8 @@ $(function() {
     function stlviewerViewModel(parameters) {
         var self = this;
 
-		self.FileList = ko.observableArray(parameters[0].listHelper.items());
+		self.files = parameters[0].listHelper;
+		self.FileList = ko.observableArray(files.items());
 		self.RenderModes = ko.observableArray(['render as smooth','render as flat','render as wireframe','render as points']);
 		
 		self.canvas = document.getElementById('cv');
@@ -40,6 +41,7 @@ $(function() {
         // already been initialized. It is especially guaranteed that this method gets called _after_ the settings
         // have been retrieved from the OctoPrint backend and thus the SettingsViewModel been properly populated.
         self.onBeforeBinding = function() {
+			self.FileList(files.items());
 			self.viewer.setParameter('SceneUrl', '');
 			self.viewer.setParameter('InitRotationX', 20);
 			self.viewer.setParameter('InitRotationY', 20);
@@ -51,7 +53,6 @@ $(function() {
 			self.viewer.setParameter('ProgressBar', 'on');
 			self.viewer.init();
 			self.viewer.update();
-			self.FileList(self.FileList);
         }
     }
 
