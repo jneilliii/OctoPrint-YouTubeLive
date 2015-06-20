@@ -6,7 +6,7 @@ $(function() {
         self.settings = parameters[1];
 		self.files = parameters[2];
 		
-		self.FileList = ko.observableArray(self.files.listHelper.items());
+		self.FileList = ko.observable();
 
         // This will get called before the HelloWorldViewModel gets bound to the DOM, but after its depedencies have
         // already been initialized. It is especially guaranteed that this method gets called _after_ the settings
