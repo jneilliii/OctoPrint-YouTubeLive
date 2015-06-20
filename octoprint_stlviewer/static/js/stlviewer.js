@@ -47,7 +47,7 @@ $(function() {
 			self.FileList(self.files.items());
 			//console.log(self.files.items());
 
-			self.viewer.setParameter('SceneUrl', '/downloads/files/local/dragon.stl');
+			self.viewer.setParameter('SceneUrl', '/downloads/files/local/' + self.models[self.models.selectedIndex].value);
 			self.viewer.setParameter('InitRotationX', 20);
 			self.viewer.setParameter('InitRotationY', 20);
 			self.viewer.setParameter('InitRotationZ', 0);
