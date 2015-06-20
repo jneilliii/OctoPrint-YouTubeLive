@@ -21,9 +21,7 @@ class stlviewer(octoprint.plugin.StartupPlugin,
 
 	def get_assets(self):
 		return dict(
-			js=["js/stlviewer.js","js/jsc3d.js","js/jsc3d.touch.js"],
-			css=["css/stlviewer.css"],
-			less=["less/stlviewer.less"]
+			js=["js/stlviewer.js","js/jsc3d.js","js/jsc3d.touch.js"]
 		)
 
 __plugin_name__ = "STL Viewer"
