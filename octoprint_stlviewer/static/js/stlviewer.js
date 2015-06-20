@@ -7,14 +7,15 @@ $(function() {
 		self.files = parameters[2];
 		
 		self.FileList = ko.observable();
-		self.FirstFile = ko.observable();
 
         // This will get called before the HelloWorldViewModel gets bound to the DOM, but after its depedencies have
         // already been initialized. It is especially guaranteed that this method gets called _after_ the settings
         // have been retrieved from the OctoPrint backend and thus the SettingsViewModel been properly populated.
         self.onBeforeBinding = function() {
-			self.FileList(self.files.listHelper.items());
+			self.FileList(self.listHelper.items());
         }
+		
+		self.listHelper = files.listHelper();
     }
 
     // This is how our plugin registers itself with the application, by adding some configuration information to
