@@ -10,8 +10,6 @@ $(function() {
 		self.RenderModes = ko.observableArray(['render as points','render as wireframe','render as flat','render as smooth']);
 		
 		self.setRenderMode = function() {
-			if(logoTimerID > 0)
-				return;
 			var modes = document.getElementById('render_mode_list');
 			switch(modes.selectedIndex) {
 			case 0:
@@ -34,11 +32,6 @@ $(function() {
 		}	
 
 		self.loadModel = function() {
-			if(logoTimerID > 0) {
-				clearInterval(logoTimerID);
-				logoTimerID = 0;
-				viewer.enableDefaultInputHandler(true);
-			}
 			var models = $('#stlviewer_file_list');
 			viewer.replaceSceneFromUrl('/downloads/files/local/' + models[models.selectedIndex].value);
 			viewer.update();
