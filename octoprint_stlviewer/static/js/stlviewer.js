@@ -7,6 +7,7 @@ $(function() {
 		self.files = parameters[2].listHelper;
 		
 		self.FileList = ko.observable();
+		self.RenderModes = ko.observableArray(['render as points','render as wireframe','render as flat','render as smooth']);
 		
 		self.setRenderMode = function() {
 			if(logoTimerID > 0)
@@ -43,12 +44,26 @@ $(function() {
 			viewer.update();
 		}		
 
-        // This will get called before the HelloWorldViewModel gets bound to the DOM, but after its depedencies have
+        // This will get called before the stlviewerViewModel gets bound to the DOM, but after its depedencies have
         // already been initialized. It is especially guaranteed that this method gets called _after_ the settings
         // have been retrieved from the OctoPrint backend and thus the SettingsViewModel been properly populated.
         self.onBeforeBinding = function() {
 			self.FileList(self.files.items());
-			console.log(self.files.items());
+			//console.log(self.files.items());
+			var canvas = document.getElementById('cv');
+			var viewer = new JSC3D.Viewer(canvas);
+			var logoTimerID = 0;
+			viewer.setParameter('SceneUrl', '/downloads/files/local/dragon.stl');
+			viewer.setParameter('InitRotationX', 20);
+			viewer.setParameter('InitRotationY', 20);
+			viewer.setParameter('InitRotationZ', 0);
+			viewer.setParameter('ModelColor', '#CAA618');
+			viewer.setParameter('BackgroundColor1', '#000000');
+			viewer.setParameter('BackgroundColor2', '#6A6AD4');
+			viewer.setParameter('RenderMode', 'smooth');
+			viewer.setParameter('ProgressBar', 'on');
+			viewer.init();
+			viewer.update();
         }
     }
 

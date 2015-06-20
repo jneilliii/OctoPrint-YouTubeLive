@@ -6,28 +6,7 @@
 		<div class="row-fluid">
 		<select id="stlviewer_file_list" data-bind="options: FileList,optionsText: 'name',optionsValue: 'name'"></select>
 		<button class="btn" data-bind="click: loadModel">{{ _('Load') }}</button>
-		<select id="render_mode_list">
-		<option>render as points</option>
-		<option>render as wireframe</option>
-		<option>render as flat</option>
-		<option selected>render as smooth</option>
-		</select>
+		<select id="render_mode_list" data-bind="options: RenderModes"></select>
 		<button id="change" class="btn" data-bind="click: setRenderMode">{{ _('Change') }}</button>
 		</div>
 	</div>
-	<script type="text/javascript">
-		var canvas = document.getElementById('cv');
-		var viewer = new JSC3D.Viewer(canvas);
-		var logoTimerID = 0;
-		viewer.setParameter('SceneUrl', '/downloads/files/local/dragon.stl');
-		viewer.setParameter('InitRotationX', 20);
-		viewer.setParameter('InitRotationY', 20);
-		viewer.setParameter('InitRotationZ', 0);
-		viewer.setParameter('ModelColor', '#CAA618');
-		viewer.setParameter('BackgroundColor1', '#000000');
-		viewer.setParameter('BackgroundColor2', '#6A6AD4');
-		viewer.setParameter('RenderMode', 'smooth');
-		viewer.setParameter('ProgressBar', 'on');
-		viewer.init();
-		viewer.update();
-	</script>
