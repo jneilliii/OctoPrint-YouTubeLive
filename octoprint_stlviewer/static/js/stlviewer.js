@@ -11,7 +11,7 @@ $(function() {
 		
 		self.canvas = document.getElementById('cv');
 		self.viewer = new JSC3D.Viewer(self.canvas);
-		self.models = document.getElementById('#stlviewer_file_list');
+		self.models = document.getElementById('stlviewer_file_list');
 		self.modes = document.getElementById('render_mode_list');
 		
 		self.setRenderMode = function() {
