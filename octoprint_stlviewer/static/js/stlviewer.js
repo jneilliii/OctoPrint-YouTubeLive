@@ -4,7 +4,7 @@ $(function() {
 
 		self.files = parameters[0].listHelper;
 		self.FileList = ko.observableArray(self.files.items());
-		self.RenderModes = ko.observableArray(['render as smooth','render as flat','render as wireframe','render as points']);
+		self.RenderModes = ko.observableArray([['name':'render as smooth','value':'smooth'],['name':'render as flat','value':'flat'],['name':'render as wireframe','value':'wireframe'],['name':'render as points','value':'point']]);
 		
 		self.canvas = document.getElementById('cv');
 		self.viewer = new JSC3D.Viewer(self.canvas);
@@ -12,23 +12,7 @@ $(function() {
 		self.modes = document.getElementById('render_mode_list');
 		
 		self.setRenderMode = function() {
-			switch(self.modes.selectedIndex) {
-			case 0:
-				self.viewer.setRenderMode('point');
-				break;
-			case 1:
-				self.viewer.setRenderMode('wireframe');
-				break;
-			case 2:
-				self.viewer.setRenderMode('flat');
-				break;
-			case 3:
-				self.viewer.setRenderMode('smooth');
-				break;
-			default:
-				self.viewer.setRenderMode('flat');
-				break;
-			}
+			self.viewer.setRenderMode(self.modes[self.modes.selectedIndex].value);
 			self.viewer.update();
 		}	
 
@@ -42,6 +26,7 @@ $(function() {
         // have been retrieved from the OctoPrint backend and thus the SettingsViewModel been properly populated.
         self.onBeforeBinding = function() {
 			self.FileList(self.files.items());
+			console.log(self.FileList);
 			self.viewer.setParameter('SceneUrl', '');
 			self.viewer.setParameter('InitRotationX', 20);
 			self.viewer.setParameter('InitRotationY', 20);
