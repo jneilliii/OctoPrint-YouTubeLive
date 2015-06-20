@@ -34,7 +34,7 @@ $(function() {
         // This is a list of dependencies to inject into the plugin, the order which you request here is the order
         // in which the dependencies will be injected into your view model upon instantiation via the parameters
         // argument
-        ["loginStateViewModel", "settingsViewModel", "GcodeFilesViewModel"],
+        ["loginStateViewModel", "settingsViewModel", "gcodeFilesViewModel"],
 
         // Finally, this is the list of all elements we want this view model to be bound to.
         [document.getElementById("tab_plugin_stlviewer")]
