@@ -9,8 +9,12 @@ $(function() {
 		self.FileList = ko.observable();
 		self.RenderModes = ko.observableArray(['render as points','render as wireframe','render as flat','render as smooth']);
 		
+		self.canvas = document.getElementById('cv');
+		self.viewer = new JSC3D.Viewer(canvas);
+		self.models = document.getElementById('#stlviewer_file_list');
+		self.modes = document.getElementById('render_mode_list');
+		
 		self.setRenderMode = function() {
-			var modes = document.getElementById('render_mode_list');
 			switch(modes.selectedIndex) {
 			case 0:
 				viewer.setRenderMode('point');
@@ -32,7 +36,6 @@ $(function() {
 		}	
 
 		self.loadModel = function() {
-			var models = $('#stlviewer_file_list');
 			viewer.replaceSceneFromUrl('/downloads/files/local/' + models[models.selectedIndex].value);
 			viewer.update();
 		}		
@@ -43,9 +46,7 @@ $(function() {
         self.onBeforeBinding = function() {
 			self.FileList(self.files.items());
 			//console.log(self.files.items());
-			var canvas = document.getElementById('cv');
-			var viewer = new JSC3D.Viewer(canvas);
-			var logoTimerID = 0;
+
 			viewer.setParameter('SceneUrl', '/downloads/files/local/dragon.stl');
 			viewer.setParameter('InitRotationX', 20);
 			viewer.setParameter('InitRotationY', 20);
