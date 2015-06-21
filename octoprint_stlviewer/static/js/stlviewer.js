@@ -3,7 +3,7 @@ $(function() {
         var self = this;
 
 		self.files = parameters[0].listHelper;
-		self.FileList = ko.observableArray(self.files.items().filter(self.isSTL);
+		self.FileList = ko.observableArray(self.files.items().filter(self.isSTL));
 		self.RenderModes = ko.observableArray([{name:'render as smooth',value:'smooth'},{name:'render as flat',value:'flat'},{name:'render as wireframe',value:'wireframe'},{name:'render as points',value:'point'}]);
 		
 		self.canvas = document.getElementById('cv');
@@ -30,14 +30,14 @@ $(function() {
 		}
 		
 		self.isSTL = function(objItem) {
-			return v.type === "model";
+			return objItem.type === "model";
 		};
 
         // This will get called before the stlviewerViewModel gets bound to the DOM, but after its depedencies have
         // already been initialized. It is especially guaranteed that this method gets called _after_ the settings
         // have been retrieved from the OctoPrint backend and thus the SettingsViewModel been properly populated.
         self.onBeforeBinding = function() {
-			self.FileList(self.files.items());
+			self.FileList(self.files.items().filter(self.isSTL));
 			self.viewer.setParameter('SceneUrl', '');
 			self.viewer.setParameter('InitRotationX', 20);
 			self.viewer.setParameter('InitRotationY', 20);
