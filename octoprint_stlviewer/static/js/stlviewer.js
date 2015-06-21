@@ -18,7 +18,7 @@ $(function() {
 
 		self.loadModel = function() {
 			var fileName = self.models[self.models.selectedIndex].value;
-			if(fileName.toLowerCase().substring(fileName.length,fileName.length-3) == "stl" {
+			if(fileName.toLowerCase().substring(fileName.length,fileName.length-3) == "stl") {
 				self.viewer.replaceSceneFromUrl('/downloads/files/local/' + fileName);
 				self.viewer.setRenderMode(self.modes[self.modes.selectedIndex].value);
 				self.viewer.update();
