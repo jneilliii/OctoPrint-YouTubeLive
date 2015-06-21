@@ -3,7 +3,7 @@ $(function() {
         var self = this;
 
 		self.files = parameters[0].listHelper;
-		self.FileList = ko.observableArray(self.files.items());
+		self.FileList = ko.observableArray(self.files.items().filter(self.isSTL);
 		self.RenderModes = ko.observableArray([{name:'render as smooth',value:'smooth'},{name:'render as flat',value:'flat'},{name:'render as wireframe',value:'wireframe'},{name:'render as points',value:'point'}]);
 		
 		self.canvas = document.getElementById('cv');
@@ -28,6 +28,10 @@ $(function() {
 				return false;
 			}
 		}
+		
+		self.isSTL = function(objItem) {
+			return v.type === "model";
+		};
 
         // This will get called before the stlviewerViewModel gets bound to the DOM, but after its depedencies have
         // already been initialized. It is especially guaranteed that this method gets called _after_ the settings
