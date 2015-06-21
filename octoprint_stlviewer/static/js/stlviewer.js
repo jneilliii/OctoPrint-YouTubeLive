@@ -31,14 +31,12 @@ $(function() {
 		
 		self.FilteredFileList = function(){
 			var arrOutput = new Array();
-			var index;
-			var a = self.files.items();
-			for (index = 0; index < a.length; ++index) {
-				console.log(a[index]);
-				if(a[index].type === "model"){
-					arrOutput.push(a[index]);
+			$.each(FileList,function(idx,obj){
+				console.log(obj);
+				if(obj.type == "model"){
+					arrOutput.push(obj);
 				}
-			}
+			});
 			return arrOutput;
 		};
 		
