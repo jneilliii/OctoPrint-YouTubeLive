@@ -18,6 +18,7 @@ $(function() {
 
 		self.loadModel = function() {
 			self.viewer.replaceSceneFromUrl('/downloads/files/local/' + self.models[self.models.selectedIndex].value);
+			self.viewer.setRenderMode(self.modes[self.modes.selectedIndex].value);
 			self.viewer.update();
 		}
 
