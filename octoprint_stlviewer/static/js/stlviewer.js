@@ -26,6 +26,7 @@ $(function() {
 			} else {
 				alert("Only stl files supported in STL Viewer.");
 				return false;
+			}
 		}
 
         // This will get called before the stlviewerViewModel gets bound to the DOM, but after its depedencies have
