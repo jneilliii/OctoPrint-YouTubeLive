@@ -4,7 +4,7 @@ $(function() {
 
 		self.files = parameters[0].listHelper;
 		self.FileList = ko.observableArray(self.files.items());
-		self.RenderModes = ko.observableArray(['render as smooth','render as flat','render as wireframe','render as points']);
+		self.RenderModes = ko.observableArray([{name:'render as smooth',value:'smooth'},{name:'render as flat',value:'flat'},{name:'render as wireframe',value:'wireframe'},{name:'render as points',value:'point'}]);
 		
 		self.canvas = document.getElementById('cv');
 		self.viewer = new JSC3D.Viewer(self.canvas);
@@ -12,29 +12,21 @@ $(function() {
 		self.modes = document.getElementById('render_mode_list');
 		
 		self.setRenderMode = function() {
-			switch(self.modes.selectedIndex) {
-			case 0:
-				self.viewer.setRenderMode('point');
-				break;
-			case 1:
-				self.viewer.setRenderMode('wireframe');
-				break;
-			case 2:
-				self.viewer.setRenderMode('flat');
-				break;
-			case 3:
-				self.viewer.setRenderMode('smooth');
-				break;
-			default:
-				self.viewer.setRenderMode('flat');
-				break;
-			}
+			self.viewer.setRenderMode(self.modes[self.modes.selectedIndex].value);
 			self.viewer.update();
 		}	
 
 		self.loadModel = function() {
-			self.viewer.replaceSceneFromUrl('/downloads/files/local/' + self.models[self.models.selectedIndex].value);
-			self.viewer.update();
+			var fileName = self.models[self.models.selectedIndex].value;
+			if(fileName.toLowerCase().substring(fileName.length,fileName.length-3) == "stl") {
+				self.viewer.replaceSceneFromUrl('/downloads/files/local/' + fileName);
+				self.viewer.setRenderMode(self.modes[self.modes.selectedIndex].value);
+				self.viewer.update();
+				return true;
+			} else {
+				alert("Only stl files supported in STL Viewer.");
+				return false;
+			}
 		}
 
         // This will get called before the stlviewerViewModel gets bound to the DOM, but after its depedencies have
