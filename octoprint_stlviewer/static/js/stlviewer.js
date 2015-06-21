@@ -17,9 +17,15 @@ $(function() {
 		}	
 
 		self.loadModel = function() {
-			self.viewer.replaceSceneFromUrl('/downloads/files/local/' + self.models[self.models.selectedIndex].value);
-			self.viewer.setRenderMode(self.modes[self.modes.selectedIndex].value);
-			self.viewer.update();
+			var fileName = self.models[self.models.selectedIndex].value;
+			if(fileName.toLowerCase().substring(fileName.length,fileName.length-3) == "stl" {
+				self.viewer.replaceSceneFromUrl('/downloads/files/local/' + fileName);
+				self.viewer.setRenderMode(self.modes[self.modes.selectedIndex].value);
+				self.viewer.update();
+				return true;
+			} else {
+				alert("Only stl files supported in STL Viewer.");
+				return false;
 		}
 
         // This will get called before the stlviewerViewModel gets bound to the DOM, but after its depedencies have
