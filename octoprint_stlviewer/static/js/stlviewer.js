@@ -4,7 +4,7 @@ $(function() {
 
 		self.files = parameters[0].listHelper;
 		self.FileList = ko.observableArray(self.files.items());
-		self.RenderModes = ko.observableArray([['name':'render as smooth','value':'smooth'],['name':'render as flat','value':'flat'],['name':'render as wireframe','value':'wireframe'],['name':'render as points','value':'point']]);
+		self.RenderModes = ko.observableArray([{name:'render as smooth',value:'smooth'},{name:'render as flat',value:'flat'},{name:'render as wireframe',value:'wireframe'},{name:'render as points',value:'point'}]);
 		
 		self.canvas = document.getElementById('cv');
 		self.viewer = new JSC3D.Viewer(self.canvas);
