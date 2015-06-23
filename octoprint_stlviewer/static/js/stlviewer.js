@@ -6,10 +6,10 @@ $(function() {
 		self.FileList = ko.observableArray();
 		self.RenderModes = ko.observableArray([{name:'render as smooth',value:'smooth'},{name:'render as flat',value:'flat'},{name:'render as wireframe',value:'wireframe'},{name:'render as points',value:'point'}]);
 		
-		self.canvas = document.getElementById('cv');
+		self.canvas = $('canvas#cv');
 		self.viewer = new JSC3D.Viewer(self.canvas);
-		self.models = document.getElementById('stlviewer_file_list');
-		self.modes = document.getElementById('render_mode_list');
+		self.models = $('#stlviewer_file_list');
+		self.modes = $('#render_mode_list');
 		
 		self.setRenderMode = function() {
 			self.viewer.setRenderMode(self.modes[self.modes.selectedIndex].value);
@@ -18,15 +18,9 @@ $(function() {
 
 		self.loadModel = function() {
 			var fileName = self.models[self.models.selectedIndex].value;
-			if(fileName.toLowerCase().substring(fileName.length,fileName.length-3) == "stl") {
-				self.viewer.replaceSceneFromUrl('/downloads/files/local/' + fileName);
-				self.viewer.setRenderMode(self.modes[self.modes.selectedIndex].value);
-				self.viewer.update();
-				return true;
-			} else {
-				alert("Only stl files supported in STL Viewer.");
-				return false;
-			}
+			self.viewer.replaceSceneFromUrl('/downloads/files/local/' + fileName);
+			self.viewer.setRenderMode(self.modes[self.modes.selectedIndex].value);
+			self.viewer.update();
 		};
 
         self.updateFileList = function() {
@@ -58,8 +52,13 @@ $(function() {
 
         self.onTabChange = function(current, previous) {
             if (current == "#stlviewer_plugin_tab") {
+            	self.resizeCanvas();
                 self.updateFileList();
             }
+        };
+        
+        self.resiveCanvas = function(){
+        	$('canvas#cv').width($('div#stlviewer_plugin_tab').parent().width());
         };
     }
 
