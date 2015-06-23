@@ -52,13 +52,8 @@ $(function() {
 
         self.onTabChange = function(current, previous) {
             if (current == "#stlviewer_plugin_tab") {
-            	self.resizeCanvas();
                 self.updateFileList();
             }
-        };
-        
-        self.resiveCanvas = function(){
-        	$('canvas#cv').width($('div#stlviewer_plugin_tab').parent().width());
         };
     }
 
