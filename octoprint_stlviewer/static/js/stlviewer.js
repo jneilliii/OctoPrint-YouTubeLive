@@ -3,7 +3,7 @@ $(function() {
         var self = this;
 
 		self.files = parameters[0].listHelper;
-		self.FileList = ko.observableArray(self.files.items());
+		self.FileList = ko.observableArray();
 		self.RenderModes = ko.observableArray([{name:'render as smooth',value:'smooth'},{name:'render as flat',value:'flat'},{name:'render as wireframe',value:'wireframe'},{name:'render as points',value:'point'}]);
 		
 		self.canvas = document.getElementById('cv');
@@ -14,7 +14,7 @@ $(function() {
 		self.setRenderMode = function() {
 			self.viewer.setRenderMode(self.modes[self.modes.selectedIndex].value);
 			self.viewer.update();
-		}	
+        };
 
 		self.loadModel = function() {
 			var fileName = self.models[self.models.selectedIndex].value;
@@ -27,7 +27,12 @@ $(function() {
 				alert("Only stl files supported in STL Viewer.");
 				return false;
 			}
-		}
+		};
+
+        self.updateFileList = function() {
+            // filter to just models
+            self.FileList(_.filter(self.files.allItems, self.files.supportedFilters["model"]));
+        };
 
         // This will get called before the stlviewerViewModel gets bound to the DOM, but after its depedencies have
         // already been initialized. It is especially guaranteed that this method gets called _after_ the settings
@@ -45,7 +50,17 @@ $(function() {
 			self.viewer.setParameter('ProgressBar', 'on');
 			self.viewer.init();
 			self.viewer.update();
-        }
+
+            $("#stlviewer_file_list").on("focusin", function() {
+                self.updateFileList();
+            });
+        };
+
+        self.onTabChange = function(current, previous) {
+            if (current == "#stlviewer_plugin_tab") {
+                self.updateFileList();
+            }
+        };
     }
 
     // This is how our plugin registers itself with the application, by adding some configuration information to
