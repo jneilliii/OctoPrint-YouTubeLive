@@ -51,18 +51,9 @@ $(function() {
         };
 
         self.onTabChange = function(current, previous) {
-	    alert(current);
-            alert(previous);
-            if (current == "#stlviewer_plugin_tab") {
+            if (current == "#tab_plugin_stlviewer") {
+            	self.resizeTab();
                 self.updateFileList();
-            }
-        };
-        
-	self.afterTabChange = function(current, previous) {
-	    alert(current);
-            alert(previous);
-            if (current == "#stlviewer_plugin_tab") {
-                self.resizeTab();
             }
         };
         
