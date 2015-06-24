@@ -62,6 +62,11 @@ $(function() {
             	$('canvas#cv').width($('div#tab_plugin_stlviewer').width());
             }
         };
+        
+        self.onEventUpdatedFiles = function(payload){
+        	console.log(payload);
+        	//self.updateFileList();
+        }
     }
 
     // This is how our plugin registers itself with the application, by adding some configuration information to
