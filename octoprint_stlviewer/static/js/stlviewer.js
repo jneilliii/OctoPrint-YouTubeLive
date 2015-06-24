@@ -58,9 +58,9 @@ $(function() {
         };
         
 	self.afterTabChange = function(current, previous) {
+	    console.log(current);
+            console.log(previous);
             if (current == "#stlviewer_plugin_tab") {
-            	console.log(current);
-            	console.log(previous);
                 self.resizeTab();
             }
         };
