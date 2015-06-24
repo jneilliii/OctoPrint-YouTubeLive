@@ -59,11 +59,9 @@ $(function() {
 		}
         	};
     	
-    	self.onEventUpload = function(file, target) {
-    		console.log(file);
-    		console.log(target);
-    		if(target == "local"){
-    			if(file.slice(-3).toLowerCase() == "stl") {
+    	self.onEventUpload = function(file) {
+    		if(file.target == "local"){
+    			if(file.file.slice(-3).toLowerCase() == "stl") {
     				self.updateFileList();
     			}
     		}
