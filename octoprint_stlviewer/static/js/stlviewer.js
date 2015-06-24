@@ -52,8 +52,15 @@ $(function() {
 
         self.onTabChange = function(current, previous) {
             if (current == "#tab_plugin_stlviewer") {
+            	console.log('ontabchange');
             	self.resizeTab();
                 self.updateFileList();
+            }
+        };
+        
+        self.afterTabChange = function(current, previous) {
+            if (current == "#tab_plugin_stlviewer") {
+            	console.log('aftertabchange');
             }
         };
         
