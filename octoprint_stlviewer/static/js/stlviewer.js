@@ -23,16 +23,11 @@ $(function() {
 		self.viewer.update();
 		};
 
-        self.updateFileList = function() {
-        	// filter to just models
-        	self.FileList(_.filter(self.files.allItems, self.files.supportedFilters["model"]));
-		};
-
         // This will get called before the stlviewerViewModel gets bound to the DOM, but after its depedencies have
         // already been initialized. It is especially guaranteed that this method gets called _after_ the settings
         // have been retrieved from the OctoPrint backend and thus the SettingsViewModel been properly populated.
         self.onBeforeBinding = function() {
-		self.FileList(self.files.items());
+		self.FileList(_.filter(self.files.allItems, self.files.supportedFilters["model"]));
 		self.viewer.setParameter('SceneUrl', '');
 		self.viewer.setParameter('InitRotationX', 20);
 		self.viewer.setParameter('InitRotationY', 20);
@@ -44,25 +39,19 @@ $(function() {
 		self.viewer.setParameter('ProgressBar', 'on');
 		self.viewer.init();
 		self.viewer.update();
-		self.updateFileList();
-        	};
-
-        self.onTabChange = function(current, previous) {
-		if (current == "#tab_plugin_stlviewer") {
-			//self.updateFileList();
-		}
         	};
         
+        //resize canvas after STL Viewer tab is made active.
         self.onAfterTabChange = function(current, previous) {
 		if (current == "#tab_plugin_stlviewer") {
 			$('canvas#cv').width($('div#tab_plugin_stlviewer').width());
 		}
         	};
     	
+    	//append file list with newly updated stl file.
     	self.onEventUpload = function(file) {
     		if(file.file.substr(file.file.length-3).toLowerCase()=="stl") {
     			self.FileList.push({name:file.file});
-    			self.FileList.sort();
     		}
     		};
     }
