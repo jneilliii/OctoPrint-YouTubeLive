@@ -58,7 +58,7 @@ $(function() {
         };
         
         self.resizeTab = function() {
-        	$('cv#canvas').width($('div#stlviewer_plugin_tab').width());
+        	$('canvas#cv').width($('div#stlviewer_plugin_tab').width());
         }
     }
 
