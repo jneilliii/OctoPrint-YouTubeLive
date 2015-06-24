@@ -6,10 +6,10 @@ $(function() {
 		self.FileList = ko.observableArray();
 		self.RenderModes = ko.observableArray([{name:'render as smooth',value:'smooth'},{name:'render as flat',value:'flat'},{name:'render as wireframe',value:'wireframe'},{name:'render as points',value:'point'}]);
 		
-		self.canvas = $('canvas#cv');
+		self.canvas = document.getElementById('cv');
 		self.viewer = new JSC3D.Viewer(self.canvas);
-		self.models = $('#stlviewer_file_list');
-		self.modes = $('#render_mode_list');
+		self.models = document.getElementById('stlviewer_file_list');
+		self.modes = document.getElementById('render_mode_list');
 		
 		self.setRenderMode = function() {
 			self.viewer.setRenderMode(self.modes[self.modes.selectedIndex].value);
@@ -52,9 +52,14 @@ $(function() {
 
         self.onTabChange = function(current, previous) {
             if (current == "#stlviewer_plugin_tab") {
+            	self.resizeTab();
                 self.updateFileList();
             }
         };
+        
+        self.resizeTab = function() {
+        	self.canvas.width = $('div#stlviewer_plugin_tab').width();
+        }
     }
 
     // This is how our plugin registers itself with the application, by adding some configuration information to
