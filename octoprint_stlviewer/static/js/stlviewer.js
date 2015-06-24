@@ -44,15 +44,11 @@ $(function() {
 		self.viewer.setParameter('ProgressBar', 'on');
 		self.viewer.init();
 		self.viewer.update();
-
-		$("#stlviewer_file_list").on("focusin", function() {
-                	self.updateFileList();
-            		});
         	};
 
         self.onTabChange = function(current, previous) {
 		if (current == "#tab_plugin_stlviewer") {
-			$('canvas#cv').width($('div#tab_plugin_stlviewer').width());
+			self.updateFileList();
 			}
         	};
         
