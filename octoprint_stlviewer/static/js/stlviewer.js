@@ -49,15 +49,22 @@ $(function() {
         self.onTabChange = function(current, previous) {
 		if (current == "#tab_plugin_stlviewer") {
 			self.updateFileList();
-			}
+		}
         	};
         
         self.onAfterTabChange = function(current, previous) {
 		if (current == "#tab_plugin_stlviewer") {
 			$('canvas#cv').width($('div#tab_plugin_stlviewer').width());
-			}
+		}
         	};
     	}
+    	
+    	self.onEventUpload = function(file, target) {
+    		if(target == "local"){
+    			if(file.slice(-3).toLowerCase() == "stl") {
+    				self.updateFileList();
+    			}
+    		}
 
     // This is how our plugin registers itself with the application, by adding some configuration information to
     // the global variable ADDITIONAL_VIEWMODELS
