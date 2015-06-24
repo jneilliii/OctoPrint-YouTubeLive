@@ -52,21 +52,10 @@ $(function() {
 
         self.onTabChange = function(current, previous) {
             if (current == "#tab_plugin_stlviewer") {
-            	console.log('ontabchange');
-            	self.resizeTab();
+            	$('canvas#cv').width($('div#tab_plugin_stlviewer').width());
                 self.updateFileList();
             }
         };
-        
-        self.afterTabChange = function(current, previous) {
-            if (current == "#tab_plugin_stlviewer") {
-            	console.log('aftertabchange');
-            }
-        };
-        
-        self.resizeTab = function() {
-        	$('canvas#cv').width($('div#stlviewer_plugin_tab').width());
-        }
     }
 
     // This is how our plugin registers itself with the application, by adding some configuration information to
