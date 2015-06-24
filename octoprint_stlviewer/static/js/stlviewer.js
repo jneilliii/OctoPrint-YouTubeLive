@@ -44,11 +44,12 @@ $(function() {
 		self.viewer.setParameter('ProgressBar', 'on');
 		self.viewer.init();
 		self.viewer.update();
+		self.updateFileList();
         	};
 
         self.onTabChange = function(current, previous) {
 		if (current == "#tab_plugin_stlviewer") {
-			self.updateFileList();
+			//self.updateFileList();
 		}
         	};
         
