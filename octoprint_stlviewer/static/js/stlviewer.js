@@ -60,11 +60,8 @@ $(function() {
         	};
     	
     	self.onEventUpload = function(file) {
-    		if(file.target == "local"){
-    			if(file.file.slice(-3).toLowerCase() == "stl") {
-    				self.updateFileList();
-    			}
-    		}
+    		console.log('updating file list');
+    		self.updateFileList();
     		};
     }
 
