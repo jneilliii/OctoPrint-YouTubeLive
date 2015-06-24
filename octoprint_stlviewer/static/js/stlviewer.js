@@ -51,10 +51,9 @@ $(function() {
         	};
 
         self.onTabChange = function(current, previous) {
-            if (current == "#tab_plugin_stlviewer") {
-            	$('canvas#cv').width($('div#tab_plugin_stlviewer').width());
-                self.updateFileList();
-            }
+		if (current == "#tab_plugin_stlviewer") {
+			$('canvas#cv').width($('div#tab_plugin_stlviewer').width());
+			}
         	};
         
         self.onAfterTabChange = function(current, previous) {
