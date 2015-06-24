@@ -60,7 +60,7 @@ $(function() {
         	};
     	
     	self.onEventUpload = function(file) {
-    		if(file.file.substr(file.file.length()-3)=="stl") {
+    		if(file.file.substr(file.file.length-3).toLowerCase()=="stl") {
     			self.FileList.push({name:file.file});
     			self.FileList.sort();
     		}
