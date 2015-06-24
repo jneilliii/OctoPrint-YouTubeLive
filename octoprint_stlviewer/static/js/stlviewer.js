@@ -60,8 +60,9 @@ $(function() {
         	};
     	
     	self.onEventUpload = function(file) {
-    		console.log('updating file list');
-    		self.updateFileList();
+    		if(file.file.slice(-3)=="stl")	{
+    			self.FileList.push({name:file.file})
+    		}
     		};
     }
 
