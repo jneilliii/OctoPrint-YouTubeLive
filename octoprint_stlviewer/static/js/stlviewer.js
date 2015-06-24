@@ -57,7 +57,6 @@ $(function() {
 			$('canvas#cv').width($('div#tab_plugin_stlviewer').width());
 		}
         	};
-    	}
     	
     	self.onEventUpload = function(file, target) {
     		if(target == "local"){
@@ -65,6 +64,8 @@ $(function() {
     				self.updateFileList();
     			}
     		}
+    		};
+    }
 
     // This is how our plugin registers itself with the application, by adding some configuration information to
     // the global variable ADDITIONAL_VIEWMODELS
