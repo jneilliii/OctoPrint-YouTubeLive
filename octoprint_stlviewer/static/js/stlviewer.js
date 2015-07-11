@@ -55,7 +55,7 @@ $(function () {
 		};
 
 		//resize canvas after STL Viewer tab is made active.
-		self.onAfterTabChange = function (current, previous) {
+		self.onTabChange = function (current, previous) {
 			if (current == "#tab_plugin_stlviewer") {
 				self.resiveCanvas();
 				self.updateFileList();
