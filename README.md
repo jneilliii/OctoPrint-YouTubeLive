@@ -14,4 +14,4 @@ manually:
 * [ ] Filter file list pull-down for stl files only.
 * [ ] Sort file list pull-down.
 * [ ] Dynamically update when new files are uploaded.
-* [ ] Support Octoprint 1.3.x folders
+* [x] Support Octoprint 1.3.x folders

@@ -30,11 +30,20 @@ $(function () {
 		};
 
 		self.loadModel = function () {
-			var fileName = self.models[self.models.selectedIndex].value;
-			self.viewer.replaceSceneFromUrl('/downloads/files/local/' + fileName);
-			self.viewer.setRenderMode(self.modes[self.modes.selectedIndex].value);
-			self.viewer.update();
+			var hash = self.models[self.models.selectedIndex].value;
+			if (hash != "") {
+				var model = self.findModel(hash);
+				self.viewer.replaceSceneFromUrl(model.refs.download);
+				self.viewer.setRenderMode(self.modes[self.modes.selectedIndex].value);
+				self.viewer.update();
+			}
 		};
+
+		// find model by hash
+		self.findModel = function(hash) {
+			var model = self.files.getItem(function(item){return item.hash == hash});
+			return model;
+		}
 
 		// This will get called before the stlviewerViewModel gets bound to the DOM, but after its depedencies have
 		// already been initialized. It is especially guaranteed that this method gets called _after_ the settings
@@ -74,7 +83,7 @@ $(function () {
 		self.updateFileList = function () {
 			self.FileList(_.filter(self.files.allItems, self.files.supportedFilters["model"]));
 		};
-		
+
 		self.resiveCanvas = function(){
         	$('canvas#cv').width($('div#tab_plugin_stlviewer').width());
         };
