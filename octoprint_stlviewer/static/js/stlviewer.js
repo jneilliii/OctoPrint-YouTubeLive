@@ -50,7 +50,7 @@ $(function () {
 		// already been initialized. It is especially guaranteed that this method gets called _after_ the settings
 		// have been retrieved from the OctoPrint backend and thus the SettingsViewModel been properly populated.
 		self.onBeforeBinding = function () {
-			self.FileList(_.filter(self.files.filesOnlyList, self.files.supportedFilters["local","model"]));
+			self.FileList(_.filter(self.filesViewModel.filesOnlyList, self.files.supportedFilters["model"]));
 			self.viewer.setParameter('SceneUrl', '');
 			self.viewer.setParameter('InitRotationX', 20);
 			self.viewer.setParameter('InitRotationY', 20);
@@ -82,7 +82,7 @@ $(function () {
 		};
 
 		self.updateFileList = function () {
-			self.FileList(_.filter(self.files.filesOnlyList, self.files.supportedFilters["model"]));
+			self.FileList(_.filter(self.filesViewModel.filesOnlyList, self.files.supportedFilters["model"]));
 		};
 
 		self.resiveCanvas = function(){
