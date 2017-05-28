@@ -1,7 +1,8 @@
 $(function () {
 	function stlviewerViewModel(parameters) {
 		var self = this;
-
+		
+		self.filesViewModel = parameters[0];
 		self.files = parameters[0].listHelper;
 		self.FileList = ko.observableArray();
 		self.RenderModes = ko.observableArray([{
@@ -68,7 +69,7 @@ $(function () {
 			if (current == "#tab_plugin_stlviewer") {
 				self.resiveCanvas();
 				self.updateFileList();
-				console.log(self.parameters[0].filesAndFolders());
+				console.log(self.filesViewModel.filesAndFolders);
 			}
 		};
 
