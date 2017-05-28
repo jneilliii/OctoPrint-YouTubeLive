@@ -43,6 +43,7 @@ $(function () {
 		// find model by hash
 		self.findModel = function(hash) {
 			var model = self.files.getItem(function(item){return item.hash == hash});
+			console.log(model);
 			return model;
 		}
 
@@ -69,7 +70,6 @@ $(function () {
 			if (current == "#tab_plugin_stlviewer") {
 				self.resiveCanvas();
 				self.updateFileList();
-				console.log(self.filesViewModel.filesAndFolders);
 			}
 		};
 
