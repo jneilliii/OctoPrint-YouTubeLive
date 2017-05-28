@@ -74,7 +74,9 @@ $(function () {
 		//append file list with newly updated stl file.
 		self.onEventUpload = function (file) {
 			if (file.file.substr(file.file.length - 3).toLowerCase() == "stl") {
-				self.updateFileList();
+				self.FileList.push({
+					name : file.file
+				});
 			}
 		};
 
