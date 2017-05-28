@@ -68,6 +68,7 @@ $(function () {
 			if (current == "#tab_plugin_stlviewer") {
 				self.resiveCanvas();
 				self.updateFileList();
+				console.log(self.parameters[0].filesAndFolders());
 			}
 		};
 
