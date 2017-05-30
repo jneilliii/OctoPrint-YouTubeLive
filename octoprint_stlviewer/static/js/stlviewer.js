@@ -72,17 +72,22 @@ $(function () {
 		};
 
 		//append file list with newly updated stl file.
-		self.onEventUpload = function (file) {
-			if (file.file.substr(file.file.length - 3).toLowerCase() == "stl") {
-				self.FileList.push({
-					name : file.file
-				});
-			}
-		};
+		//self.onEventUpload = function (file) {
+		//	if (file.file.substr(file.file.length - 3).toLowerCase() == "stl") {
+		//		self.FileList.push({
+		//			name : file.file
+		//		});
+		//	}
+		//};
 
 		self.updateFileList = function () {
 			self.FileList(_.filter(self.files.allItems, function(data) { return data["type"] == "model"; }));
 		};
+		
+		if (self.files.hasOwnProperty("allItems"))
+            		self.files.allItems.subscribe(function (newValue) {
+				self.fileList.updateItems(newValue);
+			});
 
 		self.resiveCanvas = function(){
         	$('canvas#cv').width($('div#tab_plugin_stlviewer').width());
