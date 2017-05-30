@@ -86,7 +86,7 @@ $(function () {
 		
 		if (self.filesViewModel.hasOwnProperty("allItems"))
             		self.filesViewModel.allItems.subscribe(function (newValue) {
-				self.fileList.updateItems(newValue);
+				self.updateFileList;
 			});
 
 		self.resiveCanvas = function(){
