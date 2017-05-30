@@ -84,8 +84,8 @@ $(function () {
 			self.FileList(_.filter(self.files.allItems, function(data) { return data["type"] == "model"; }));
 		};
 		
-		if (self.files.hasOwnProperty("allItems"))
-            		self.files.allItems.subscribe(function (newValue) {
+		if (self.filesViewModel.hasOwnProperty("allItems"))
+            		self.filesViewModel.allItems.subscribe(function (newValue) {
 				self.fileList.updateItems(newValue);
 			});
 
