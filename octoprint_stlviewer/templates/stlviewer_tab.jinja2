@@ -6,5 +6,5 @@
 			<label for="render_mode_list">Mode</label>
 			<select id="render_mode_list" data-bind="options: RenderModes,optionsText: 'name',optionsValue: 'value',event: { change: setRenderMode }"></select>
 		</div>
-		<div id="root" data-bind="text: $root"></div>
+		<div id="root" data-bind="text: $root.fileListHelper"></div>
 	<!--</div>-->
