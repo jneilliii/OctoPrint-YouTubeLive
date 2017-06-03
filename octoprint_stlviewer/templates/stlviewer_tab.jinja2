@@ -2,7 +2,7 @@
 		<canvas id="cv" style="border: 1px solid;" width="588" height="368" ></canvas>
 		<div class="row-fluid">
 			<label for="stlviewer_file_list">File</label>
-			<select id="stlviewer_file_list" data-bind="options: FileList,optionsText: 'name',optionsValue: 'hash',optionsCaption: 'Choose...',event: { change: loadModel }"></select>			
+			<select id="stlviewer_file_list" data-bind="options: FileList,optionsText: 'name',optionsValue: 'hash',optionsCaption: 'Choose...',event: { change: loadModel },click: updateFileList"></select>			
 			<label for="render_mode_list">Mode</label>
 			<select id="render_mode_list" data-bind="options: RenderModes,optionsText: 'name',optionsValue: 'value',event: { change: setRenderMode }"></select>
 		</div>
