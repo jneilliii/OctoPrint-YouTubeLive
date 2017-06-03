@@ -11,7 +11,7 @@ manually:
 ## Configuration
 
 ## TODO:
-* [ ] Filter file list pull-down for stl files only.
-* [ ] Sort file list pull-down.
-* [ ] Dynamically update when new files are uploaded.
+* [x] Filter file list pull-down for stl files only.
+* [x] Sort file list pull-down. (uneeded, sorting is handled by FilesViewModel)
+* [x] Dynamically update when new files are uploaded.
 * [x] Support Octoprint 1.3.x folders
