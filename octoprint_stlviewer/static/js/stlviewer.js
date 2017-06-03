@@ -3,6 +3,7 @@ $(function () {
 		var self = this;
 		
 		self.files = parameters[0].listHelper;
+		self.files.allItems.subscribe(function(data){console.log(data)};);
 		self.FileList = ko.observableArray();
 		self.RenderModes = ko.observableArray([{
 						name : 'render as smooth',
