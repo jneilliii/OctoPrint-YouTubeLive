@@ -63,23 +63,6 @@ $(function () {
 			self.viewer.update();
 		};
 
-		//resize canvas after STL Viewer tab is made active.
-		//self.onTabChange = function (current, previous) {
-		//	if (current == "#tab_plugin_stlviewer") {
-		//		self.resiveCanvas();
-		//		self.updateFileList();
-		//	}
-		//};
-
-		//append file list with newly updated stl file.
-		//self.onEventUpload = function (file) {
-		//	if (file.file.substr(file.file.length - 3).toLowerCase() == "stl") {
-		//		self.FileList.push({
-		//			name : file.file
-		//		});
-		//	}
-		//};
-
 		self.updateFileList = function () {
 			self.FileList(_.filter(self.files.allItems, function(data) { return data["type"] == "model"; }));
 		};
