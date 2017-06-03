@@ -2,9 +2,8 @@ $(function () {
 	function stlviewerViewModel(parameters) {
 		var self = this;
 		
-		self.filesViewModel = parameters[0];
-		self.files = self.filesVewModel.listHelper.allItems;
-		self.FileList = ko.observableArray(files);
+		self.files = parameters[0].listHelper;
+		self.FileList = ko.observableArray();
 		self.RenderModes = ko.observableArray([{
 						name : 'render as smooth',
 						value : 'smooth'
@@ -50,6 +49,7 @@ $(function () {
 		// already been initialized. It is especially guaranteed that this method gets called _after_ the settings
 		// have been retrieved from the OctoPrint backend and thus the SettingsViewModel been properly populated.
 		self.onBeforeBinding = function () {
+			self.FileList(_.filter(self.files.allItems, function(data) { return data["type"] == "model"; }));
 			self.viewer.setParameter('SceneUrl', '');
 			self.viewer.setParameter('InitRotationX', 20);
 			self.viewer.setParameter('InitRotationY', 20);
@@ -81,7 +81,7 @@ $(function () {
 		//};
 
 		self.updateFileList = function () {
-			self.FileList(_.filter(self.files, function(data) { return data["type"] == "model"; }));
+			self.FileList(_.filter(self.files.allItems, function(data) { return data["type"] == "model"; }));
 		};
 
 		self.resiveCanvas = function(){
