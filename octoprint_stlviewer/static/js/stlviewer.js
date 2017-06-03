@@ -3,7 +3,7 @@ $(function () {
 		var self = this;
 		
 		self.filesViewModel = parameters[0];
-		self.files = ko.observableArray(self.filesViewModel.listHelper.allItems);
+		self.files = ko.observableArray();
 		self.FileList = ko.observableArray(_.filter(self.files, function(data) { return data["type"] == "model"; }));
 		self.RenderModes = ko.observableArray([{
 						name : 'render as smooth',
@@ -50,6 +50,7 @@ $(function () {
 		// already been initialized. It is especially guaranteed that this method gets called _after_ the settings
 		// have been retrieved from the OctoPrint backend and thus the SettingsViewModel been properly populated.
 		self.onBeforeBinding = function () {
+			self.files(self.filesViewModel.listHelper.allItems);
 			self.viewer.setParameter('SceneUrl', '');
 			self.viewer.setParameter('InitRotationX', 20);
 			self.viewer.setParameter('InitRotationY', 20);
