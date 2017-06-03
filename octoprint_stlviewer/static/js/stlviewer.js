@@ -3,8 +3,8 @@ $(function () {
 		var self = this;
 		
 		self.filesViewModel = parameters[0];
-		self.files = ko.observableArray(self.filesViewModel.listHelper);
-		self.FileList = ko.observableArray(_.filter(self.files.allItems, function(data) { return data["type"] == "model"; }));
+		self.files = ko.observableArray(self.filesViewModel.listHelper.allItems);
+		self.FileList = ko.observableArray(_.filter(self.files, function(data) { return data["type"] == "model"; }));
 		self.RenderModes = ko.observableArray([{
 						name : 'render as smooth',
 						value : 'smooth'
@@ -81,14 +81,8 @@ $(function () {
 		//};
 
 		self.updateFileList = function () {
-			self.FileList(_.filter(self.files.allItems, function(data) { return data["type"] == "model"; }));
+			self.FileList(_.filter(self.files, function(data) { return data["type"] == "model"; }));
 		};
-		
-		if (self.filesViewModel.hasOwnProperty("allItems"))
-            		self.filesViewModel.allItems.subscribe(function (newValue) {
-				self.updateFileList();
-				console.log("file uploaded");
-			});
 
 		self.resiveCanvas = function(){
         	$('canvas#cv').width($('div#tab_plugin_stlviewer').width());
