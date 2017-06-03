@@ -50,7 +50,7 @@ $(function () {
 		// already been initialized. It is especially guaranteed that this method gets called _after_ the settings
 		// have been retrieved from the OctoPrint backend and thus the SettingsViewModel been properly populated.
 		self.onBeforeBinding = function () {
-			self.files(self.filesViewModel.listHelper.allItems);
+			self.files(self.filesViewModel.allItems);
 			self.FileList(_.filter(self.files, function(data) { return data["type"] == "model"; }));
 			self.viewer.setParameter('SceneUrl', '');
 			self.viewer.setParameter('InitRotationX', 20);
