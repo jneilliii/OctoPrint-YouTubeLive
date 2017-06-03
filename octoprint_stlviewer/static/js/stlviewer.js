@@ -3,7 +3,7 @@ $(function () {
 		var self = this;
 		
 		self.filesViewModel = parameters[0];
-		self.files = parameters[0].listHelper;
+		self.files = ko.observableArray(filesViewModel.listHelper);
 		self.FileList = ko.observableArray(_.filter(self.files.allItems, function(data) { return data["type"] == "model"; }));
 		self.RenderModes = ko.observableArray([{
 						name : 'render as smooth',
