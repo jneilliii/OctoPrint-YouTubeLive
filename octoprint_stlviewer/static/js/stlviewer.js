@@ -64,12 +64,12 @@ $(function () {
 		};
 
 		//resize canvas after STL Viewer tab is made active.
-		self.onTabChange = function (current, previous) {
-			if (current == "#tab_plugin_stlviewer") {
-				self.resiveCanvas();
-				self.updateFileList();
-			}
-		};
+		//self.onTabChange = function (current, previous) {
+		//	if (current == "#tab_plugin_stlviewer") {
+		//		self.resiveCanvas();
+		//		self.updateFileList();
+		//	}
+		//};
 
 		//append file list with newly updated stl file.
 		//self.onEventUpload = function (file) {
