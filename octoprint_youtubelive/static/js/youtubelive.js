@@ -2,7 +2,7 @@ $(function () {
 	function youtubeliveViewModel(parameters) {
 		var self = this;
 		
-		self.settings = parameters[0];
+		self.settingsViewModel = parameters[0];
 		self.channel_id = ko.observable();
 		
 		self.youtubelive_url = ko.computed(function() {
