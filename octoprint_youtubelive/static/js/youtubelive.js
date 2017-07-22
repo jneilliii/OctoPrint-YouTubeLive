@@ -15,10 +15,6 @@ $(function () {
 		self.onBeforeBinding = function () {
 			self.channel_id(self.settingsViewModel.settings.plugins.youtubelive.channel_id());
 		};
-		
-		self.onAfterBinding = function () {
-			
-		};
 
 		self.onEventSettingsUpdated = function (payload) {            
             self.channel_id = self.settingsViewModel.settings.plugins.youtubelive.channel_id();
