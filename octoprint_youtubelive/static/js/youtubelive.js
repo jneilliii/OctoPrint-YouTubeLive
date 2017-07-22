@@ -4,10 +4,6 @@ $(function () {
 		
 		self.settingsViewModel = parameters[0];
 		self.channel_id = ko.observable();
-		
-		self.youtubelive_url = ko.computed(function() {
-			return "https://www.youtube.com/embed/live_stream?channel=" + self.channel_id();
-			}, self);
 
 		// This will get called before the youtubeliveViewModel gets bound to the DOM, but after its depedencies have
 		// already been initialized. It is especially guaranteed that this method gets called _after_ the settings
