@@ -16,7 +16,7 @@ Once installed enter your YouTube's channel id which can be found on your [Advan
 
 **Note:** If you use the same pi for both streaming and octoprint you will need to stop the webcamd service if using an OctoPi distribution. I ended up using the [SystemCommandEditor](https://github.com/Salandora/OctoPrint-SystemCommandEditor) plugin and added the following commands:
 
-+ sudo service webcamd stop && docker run --privileged --name cam -d alexellis2/streaming:17-5-2017 <live stream secret>
++ sudo service webcamd stop && docker run --privileged --name cam -d alexellis2/streaming:17-5-2017 *xxxx-xxxx-xxxx-xxxx*
 + docker stop cam && docker rm cam && sudo service webcamd start
 
 manually:
