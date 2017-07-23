@@ -29,6 +29,6 @@ $(function () {
 			["settingsViewModel"],
 
 			// Finally, this is the list of all elements we want this view model to be bound to.
-			[("#tab_plugin_youtubelive")]
+			[("#tab_plugin_youtubelive","#settings_plugin_youtubelive")]
 		]);
 });
