@@ -6,7 +6,7 @@
 
 Would probably run better on a Pi 3 as the live stream does start to buffer running both OctoPrint and the stream from the same Pi Zero W. You could run your stream from any device, this plugin just creates the tab to allow you to look at the given channels live stream.
 
-<img src="https://raw.githubusercontent.com/jneilliii/Octoprint-YouTubeLive/master/screenshot.jpg">
+<img src="https://raw.githubusercontent.com/jneilliii/Octoprint-YouTubeLive/master/tab_screenshot.jpg">
 
 ## Setup
 
