@@ -14,7 +14,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 	
 	##~~ TemplatePlugin
 	def get_template_configs(self):
-		return [dict(type="settings",custom_bindings=False)]
+		return [dict(type="settings",custom_bindings=True)]
 		
 	##~~ AssetPlugin
 	def get_assets(self):
