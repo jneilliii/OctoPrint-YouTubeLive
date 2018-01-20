@@ -2,7 +2,6 @@
 from __future__ import absolute_import
 
 import octoprint.plugin
-import os
 from octoprint.server import user_permission
 
 class youtubelive(octoprint.plugin.StartupPlugin,
@@ -28,7 +27,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 	
 	##~~ SettingsPlugin
 	def get_settings_defaults(self):
-		return dict(channel_id="",stream_id="")
+		return dict(channel_id="",stream_id="",process="",ffmpeg="nano")
 		
 	##~~ SimpleApiPlugin mixin
 	
@@ -41,8 +40,16 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			return make_response("Insufficient rights", 403)
 			
 		if command == 'startStream':
-			try:
-				self._logger.info("channel: %s stream: %s" % (self._settings.get(["channel_id"]),self._settings.get(["stream_id"])))
+			try:			
+				from subprocess import Popen
+				import sys
+				DETACHED_PROCESS = 0x00000008
+				cmd = [
+					sys.executable,
+					self._settings.get(["ffmpeg"])
+				]
+				self._settings.set(["process"],Popen(cmd,shell=False,stdin=None,stdout=None,stderr=None,close_fds=True,creationflags=DETACHED_PROCESS))
+				self._logger.info("channel: %s stream: %s pid: %s" % (self._settings.get(["channel_id"]),self._settings.get(["stream_id"]),self._settings.get(["process"]).pid))
 			except Exception, e:
 				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e)))
 
