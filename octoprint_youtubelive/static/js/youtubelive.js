@@ -15,6 +15,34 @@ $(function () {
 		self.onEventSettingsUpdated = function (payload) {            
             self.channel_id = self.settingsViewModel.settings.plugins.youtubelive.channel_id();
         };
+		
+		self.onDataUpdaterPluginMessage = function(plugin, data) {
+			if (plugin != "youtubelive") {
+				return;
+			}
+			
+			if(data.error) {
+				new PNotify({
+							title: 'YouTubeLive Error',
+							text: data.error,
+							type: 'error',
+							hide: false
+							});
+			}
+			self.processing.remove(data.topic+'|'+data.publishcommand);
+        };
+		
+		self.startStream = function() {
+			$.ajax({
+                url: API_BASEURL + "plugin/youtubelive",
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify({
+                    command: "startStream"
+                }),
+                contentType: "application/json; charset=UTF-8"
+            })
+		}
 	}
 
 	// This is how our plugin registers itself with the application, by adding some configuration information to

@@ -2,11 +2,13 @@
 from __future__ import absolute_import
 
 import octoprint.plugin
+import os
 
 class youtubelive(octoprint.plugin.StartupPlugin,
 				octoprint.plugin.TemplatePlugin,
 				octoprint.plugin.AssetPlugin,
-                octoprint.plugin.SettingsPlugin):
+                octoprint.plugin.SettingsPlugin,
+				octoprint.plugin.SimpleApiPlugin):
 	
 	##~~ StartupPlugin
 	def on_after_startup(self):
@@ -26,6 +28,22 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 	##~~ SettingsPlugin
 	def get_settings_defaults(self):
 		return dict(channel_id="")
+		
+	##~~ SimpleApiPlugin mixin
+	
+	def get_api_commands(self):
+		return dict(startStream=[])
+		
+	def on_api_command(self, command, data):
+		if not user_permission.can():
+			from flask import make_response
+			return make_response("Insufficient rights", 403)
+			
+		if command == 'startStream':
+			try:
+				os.system("sudo service octoprint restart")
+			except Exception, e:
+				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e)))
 
 	##~~ Softwareupdate hook
 	def get_update_information(self):
