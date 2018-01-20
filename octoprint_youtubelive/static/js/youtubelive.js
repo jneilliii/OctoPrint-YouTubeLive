@@ -26,7 +26,7 @@ $(function () {
 			
 			if(data.error) {
 				new PNotify({
-							title: 'YouTubeLive Error',
+							title: 'YouTube Live Error',
 							text: data.error,
 							type: 'error',
 							hide: false
