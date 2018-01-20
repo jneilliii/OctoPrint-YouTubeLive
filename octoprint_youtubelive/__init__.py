@@ -27,7 +27,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 	
 	##~~ SettingsPlugin
 	def get_settings_defaults(self):
-		return dict(channel_id="")
+		return dict(channel_id="",stream_id="")
 		
 	##~~ SimpleApiPlugin mixin
 	
@@ -41,7 +41,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			
 		if command == 'startStream':
 			try:
-				os.system("sudo service octoprint restart")
+				self._logger.info("channel: %s stream: %s" % (self._settings.get(["channel_id"]),self._settings.get(["stream_id"])))
 			except Exception, e:
 				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e)))
 
