@@ -1,9 +1,9 @@
 <div id="youtubelive_wrapper">
-	<iframe data-bind="attr: {src: 'https://www.youtube.com/embed/live_stream?channel=' + settingsViewModel.settings.plugins.youtubelive.channel_id()}" frameborder="0" allowfullscreen></iframe>
 	<div class="control-group">
 		<label class="control-label">{{ _('Go Live') }}</label>
 		<div class="controls">
 			<button class="btn btn-danger" data-bind="click: startStream"><i class="icon icon-play"></i>Go Live</button>
 		</div>
 	</div>
+	<iframe data-bind="attr: {src: 'https://www.youtube.com/embed/live_stream?channel=' + settingsViewModel.settings.plugins.youtubelive.channel_id()}" frameborder="0" allowfullscreen></iframe>
 </div>
