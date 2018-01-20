@@ -3,6 +3,7 @@ from __future__ import absolute_import
 
 import octoprint.plugin
 import os
+from octoprint.server import user_permission
 
 class youtubelive(octoprint.plugin.StartupPlugin,
 				octoprint.plugin.TemplatePlugin,
