@@ -11,9 +11,19 @@ class youtubelive(octoprint.plugin.StartupPlugin,
                 octoprint.plugin.SettingsPlugin,
 				octoprint.plugin.SimpleApiPlugin):
 	
+	def __init__(self):
+		self.client = docker.from_env()
+		try:
+			self.container = client.containers.get('YouTubeLive')
+		except Exception, e:
+			self.container = None
+			self._logger.info(str(e))
+	
 	##~~ StartupPlugin
 	def on_after_startup(self):
 		self._logger.info("OctoPrint-YouTubeLive loaded!")
+		if self.container:
+			self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
 	
 	##~~ TemplatePlugin
 	def get_template_configs(self):
@@ -39,18 +49,11 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 		if not user_permission.can():
 			from flask import make_response
 			return make_response("Insufficient rights", 403)
-			
-		client = docker.from_env()
-		try:
-			container = client.containers.get('YouTubeLive')
-			self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
-		except:
-			self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
 		
 		if command == 'startStream':
 			self._logger.info("Start stream command received for stream: %s" % self._settings.get(["stream_id"]))
-			if not container:
-				try:			
+			if not self.container:
+				try:
 					client.containers.run("alexellis2/streaming:17-5-2017",command="pbea-b3pr-8513-40mh",detach=True,privileged=True,name="YouTubeLive",auto_remove=True)
 					self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
 				except Exception, e:
@@ -58,7 +61,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			return
 		if command == 'stopStream':
 			self._logger.info("Stop stream command received.")
-			if container:
+			if self.container:
 				try:
 					container.stop()
 					self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
