@@ -42,6 +42,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			
 		if command == 'startStream':
 			self._settings.set(["streaming"],True)
+			self._settings.save()
 			try:			
 				from subprocess import Popen
 				import sys
@@ -58,14 +59,17 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 				self._logger.info("channel: %s stream: %s pid: %s" % (self._settings.get(["channel_id"]),self._settings.get(["stream_id"]),self._settings.get(["process"])))
 			except Exception, e:
 				self._settings.set(["streaming"],False)
+				self._settings.save()
 				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e)))
 			return
 		if command == 'stopStream':
 			try:
 				self._logger.info("Stop stream command received, pid: %s" % self._settings.get(["stream_id"]),self._settings.get(["process"]))				
 				self._settings.set(["streaming"],False)
+				self._settings.save()
 			except Exception, e:
 				self._settings.set(["streaming"],False)
+				self._settings.save()
 				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e)))
 
 	##~~ Softwareupdate hook
