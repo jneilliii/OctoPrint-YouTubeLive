@@ -49,12 +49,13 @@ $(function () {
 							});
 			}
 			
-			if(data.streamStarted) {
-				self.streaming(true)
-			}
-			
-			if(data.streamStopped) {
-				self.streaming(false)
+			if(data.status) {
+				if(data.streaming == true) {
+					self.streaming(true);
+				} else {
+					self.streaming(false);
+				}
+				
 			}
         };
 		
