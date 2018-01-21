@@ -1,6 +1,6 @@
 <div id="youtubelive_wrapper">
 	<iframe data-bind="attr: {src: 'https://www.youtube.com/embed/live_stream?channel=' + settingsViewModel.settings.plugins.youtubelive.channel_id()}" frameborder="0" allowfullscreen></iframe>
 </div>
-<div class="row-fluid" style="text-align: center;padding-top: 20px;">
-	<button class="btn btn-danger" data-bind="click: startStream"><i class="icon icon-play"></i> Go Live</button>
+<div class="row-fluid btn-group" style="text-align: center;padding-top: 20px;">
+	<button class="btn" data-bind="click: toggleStream"><i data-bind="css: ['icon', (settingsViewModel.settings.plugins.youtubelive.streaming() ? 'icon-stop' : 'icon-play')].join(' ')"></i> <span data-bind="text: (settingsViewModel.settings.plugins.youtubelive.streaming() ? 'Stop' : 'Go Live')"></span></button>
 </div>

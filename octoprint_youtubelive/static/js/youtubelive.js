@@ -5,6 +5,7 @@ $(function () {
 		self.settingsViewModel = parameters[0];
 		self.channel_id = ko.observable();
 		self.stream_id = ko.observable();
+		self.streaming = ko.observable();
 
 		// This will get called before the youtubeliveViewModel gets bound to the DOM, but after its depedencies have
 		// already been initialized. It is especially guaranteed that this method gets called _after_ the settings
@@ -12,11 +13,13 @@ $(function () {
 		self.onBefireBinding = function () {
 			self.channel_id(self.settingsViewModel.settings.plugins.youtubelive.channel_id());
 			self.stream_id(self.settingsViewModel.settings.plugins.youtubelive.stream_id());
+			self.streaming(self.settingsViewModel.settings.plugins.youtubelive.streaming());
 		};
 
 		self.onEventSettingsUpdated = function (payload) {            
             self.channel_id = self.settingsViewModel.settings.plugins.youtubelive.channel_id();
 			self.stream_id(self.settingsViewModel.settings.plugins.youtubelive.stream_id());
+			self.streaming(self.settingsViewModel.settings.plugins.youtubelive.streaming());
         };
 		
 		self.onDataUpdaterPluginMessage = function(plugin, data) {
@@ -35,16 +38,28 @@ $(function () {
 			self.processing.remove(data.topic+'|'+data.publishcommand);
         };
 		
-		self.startStream = function() {
-			$.ajax({
-                url: API_BASEURL + "plugin/youtubelive",
-                type: "POST",
-                dataType: "json",
-                data: JSON.stringify({
-                    command: "startStream"
-                }),
-                contentType: "application/json; charset=UTF-8"
-            })
+		self.toggleStream = function() {
+			if (self.streaming()) {
+				$.ajax({
+					url: API_BASEURL + "plugin/youtubelive",
+					type: "POST",
+					dataType: "json",
+					data: JSON.stringify({
+						command: "startStream"
+					}),
+					contentType: "application/json; charset=UTF-8"
+				})
+			} else {
+				$.ajax({
+					url: API_BASEURL + "plugin/youtubelive",
+					type: "POST",
+					dataType: "json",
+					data: JSON.stringify({
+						command: "stopStream"
+					}),
+					contentType: "application/json; charset=UTF-8"
+				})
+			}
 		}
 	}
 
