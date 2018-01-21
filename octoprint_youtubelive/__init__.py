@@ -55,16 +55,16 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 					self._settings.set(["process"],Popen(cmd,shell=False,stdin=None,stdout=None,stderr=None,close_fds=True).pid)
 				
 				self._logger.info("channel: %s stream: %s pid: %s" % (self._settings.get(["channel_id"]),self._settings.get(["stream_id"]),self._settings.get(["process"])))
-				self._plugin_manager.send_plugin_message(self._identifier, dict(streaming=True))
+				self._plugin_manager.send_plugin_message(self._identifier, dict(streamStarted=True))
 			except Exception, e:
-				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),streaming=False))
+				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),streamStarted=False))
 			return
 		if command == 'stopStream':
 			try:
-				self._logger.info("Stop stream command received, pid: %s" % self._settings.get(["stream_id"]),self._settings.get(["process"]))
-				self._plugin_manager.send_plugin_message(self._identifier, dict(streaming=False))
+				self._logger.info("Stop stream command received, pid: %s" % self._settings.get(["process"]))
+				self._plugin_manager.send_plugin_message(self._identifier, dict(streamStopped=False))
 			except Exception, e:
-				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),streaming=True))
+				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),streamStopped=True))
 
 	##~~ Softwareupdate hook
 	def get_update_information(self):
