@@ -45,6 +45,7 @@ $(function () {
 			}
 			
 			console.log(data);
+			console.log("streaming: "+self.streaming())
 			
 			if(data.error) {
 				new PNotify({
