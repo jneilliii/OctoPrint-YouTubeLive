@@ -29,6 +29,18 @@ $(function () {
 			self.streaming(self.settingsViewModel.settings.plugins.youtubelive.streaming());
         };
 		
+		self.onAfterBinding = function() {
+			$.ajax({
+					url: API_BASEURL + "plugin/youtubelive",
+					type: "POST",
+					dataType: "json",
+					data: JSON.stringify({
+						command: "checkStream"
+					}),
+					contentType: "application/json; charset=UTF-8"
+				})
+		}
+		
 		self.onDataUpdaterPluginMessage = function(plugin, data) {
 			if (plugin != "youtubelive") {
 				return;

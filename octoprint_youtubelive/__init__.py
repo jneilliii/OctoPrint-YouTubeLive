@@ -44,7 +44,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 	##~~ SimpleApiPlugin mixin
 	
 	def get_api_commands(self):
-		return dict(startStream=[],stopStream=[])
+		return dict(startStream=[],stopStream=[],checkStream=[])
 		
 	def on_api_command(self, command, data):
 		if not user_permission.can():
@@ -55,7 +55,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			self._logger.info("Start stream command received for stream: %s" % self._settings.get(["stream_id"]))
 			if not self.container:
 				try:
-					self.client.containers.run("alexellis2/streaming:17-5-2017",command="pbea-b3pr-8513-40mh",detach=True,privileged=True,name="YouTubeLive",auto_remove=True)
+					self.container = self.client.containers.run("alexellis2/streaming:17-5-2017",command="pbea-b3pr-8513-40mh",detach=True,privileged=True,name="YouTubeLive",auto_remove=True)
 					self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
 				except Exception, e:
 					self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),status=True,streaming=False))
@@ -68,6 +68,12 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 					self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
 				except Exception, e:
 					self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),status=True,streaming=False))
+			else:
+				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
+		if command == 'checkStream':
+			self.logger.info("Checking stream status.")
+			if self.container:
+				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
 			else:
 				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
 
