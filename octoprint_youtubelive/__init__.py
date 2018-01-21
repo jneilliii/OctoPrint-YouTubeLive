@@ -58,6 +58,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 				self._logger.info("channel: %s stream: %s pid: %s" % (self._settings.get(["channel_id"]),self._settings.get(["stream_id"]),self._settings.get(["process"])))
 				self._plugin_manager.send_plugin_message(self._identifier, dict(streamStarted=True))
 			except Exception, e:
+				self._settings.set(["process"],"")
 				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),streamStarted=False))
 			return
 		if command == 'stopStream':
