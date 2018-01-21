@@ -39,6 +39,14 @@ $(function () {
 							}
 							});
 			}
+			
+			if(data.streamStarted) {
+				self.streaming(true)
+			}
+			
+			if(data.streamStopped) {
+				self.streaming(false)
+			}
         };
 		
 		self.toggleStream = function() {
