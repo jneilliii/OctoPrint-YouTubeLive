@@ -2,9 +2,8 @@
 from __future__ import absolute_import
 
 import octoprint.plugin
-import os
 from octoprint.server import user_permission
-import signal
+import docker
 
 class youtubelive(octoprint.plugin.StartupPlugin,
 				octoprint.plugin.TemplatePlugin,
@@ -26,10 +25,10 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			js=["js/youtubelive.js"],
 			css=["css/youtubelive.css"]
 		)
-	
+		
 	##~~ SettingsPlugin
 	def get_settings_defaults(self):
-		return dict(channel_id="",stream_id="",process="",ffmpeg="nano",streaming=False)
+		return dict(channel_id="",stream_id="",streaming=False)
 		
 	##~~ SimpleApiPlugin mixin
 	
@@ -41,34 +40,30 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			from flask import make_response
 			return make_response("Insufficient rights", 403)
 			
+		client = docker.from_env()
+		try:
+			container = client.containers.get('YouTubeLive')
+			self._plugin_manager.send_plugin_message(self._identifier, dict(streaming=True))
+		except:
+			self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),streaming=False))
+		
 		if command == 'startStream':
-			try:			
-				from subprocess import Popen
-				import sys
-				DETACHED_PROCESS = 0x00000008
-				cmd = [
-					self._settings.get(["ffmpeg"])
-				]
-				if os.name == 'nt':
-					self._settings.set(["process"],Popen(cmd,shell=False,stdin=None,stdout=None,stderr=None,close_fds=True,creationflags=DETACHED_PROCESS).pid)
-				else:
-					self._settings.set(["process"],Popen(cmd,shell=False,stdin=None,stdout=None,stderr=None,close_fds=True).pid)
-				
-				self._logger.info("channel: %s stream: %s pid: %s" % (self._settings.get(["channel_id"]),self._settings.get(["stream_id"]),self._settings.get(["process"])))
-				self._plugin_manager.send_plugin_message(self._identifier, dict(streamStarted=True))
-			except Exception, e:
-				self._settings.set(["process"],"")
-				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),streamStarted=False))
+			self._logger.info("Start stream command received for stream: %s" % self._settings.get(["stream_id"]))
+			if not container:
+				try:			
+					client.containers.run("alexellis2/streaming:17-5-2017",command="pbea-b3pr-8513-40mh",detach=True,privileged=True,name="YouTubeLive",auto_remove=True)
+					self._plugin_manager.send_plugin_message(self._identifier, dict(streaming=True))
+				except Exception, e:
+					self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),streaming=False))
 			return
 		if command == 'stopStream':
-			self._logger.info("Stop stream command received, current saved pid: %s" % self._settings.get(["process"]))
-			try:
-				if self._settings.get(["process"]) != "":
-					os.kill(int(self._settings.get(["process"])), signal.SIGKILL)
-				self._settings.set(["process"],"")
-				self._plugin_manager.send_plugin_message(self._identifier, dict(streamStopped=True))
-			except Exception, e:
-				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),streamStopped=False))
+			self._logger.info("Stop stream command received.")
+			if container:
+				try:
+					container.stop()
+					self._plugin_manager.send_plugin_message(self._identifier, dict(streaming=False))
+				except Exception, e:
+					self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),streaming=False))
 
 	##~~ Softwareupdate hook
 	def get_update_information(self):
