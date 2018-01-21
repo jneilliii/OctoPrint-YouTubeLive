@@ -17,7 +17,7 @@ $(function () {
 		};
 
 		self.onEventSettingsUpdated = function (payload) {            
-            self.channel_id = self.settingsViewModel.settings.plugins.youtubelive.channel_id();
+            self.channel_id(self.settingsViewModel.settings.plugins.youtubelive.channel_id());
 			self.stream_id(self.settingsViewModel.settings.plugins.youtubelive.stream_id());
 			self.streaming(self.settingsViewModel.settings.plugins.youtubelive.streaming());
         };
