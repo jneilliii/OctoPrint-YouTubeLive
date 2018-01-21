@@ -51,10 +51,8 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 				]
 				if os.name == 'nt':
 					self._settings.set(["process"],Popen(cmd,shell=False,stdin=None,stdout=None,stderr=None,close_fds=True,creationflags=DETACHED_PROCESS))
-					self._settings.save()
 				else:
 					self._settings.set(["process"],Popen(cmd,shell=False,stdin=None,stdout=None,stderr=None,close_fds=True))
-					self._settings.save()
 				
 				self._logger.info("channel: %s stream: %s pid: %s" % (self._settings.get(["channel_id"]),self._settings.get(["stream_id"]),self._settings.get(["process"])))
 			except Exception, e:

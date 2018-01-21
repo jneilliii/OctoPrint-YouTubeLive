@@ -39,7 +39,6 @@ $(function () {
 							}
 							});
 			}
-			self.processing.remove(data.topic+'|'+data.publishcommand);
         };
 		
 		self.toggleStream = function() {
@@ -49,7 +48,7 @@ $(function () {
 					type: "POST",
 					dataType: "json",
 					data: JSON.stringify({
-						command: "startStream"
+						command: "stopStream"
 					}),
 					contentType: "application/json; charset=UTF-8"
 				})
@@ -59,7 +58,7 @@ $(function () {
 					type: "POST",
 					dataType: "json",
 					data: JSON.stringify({
-						command: "stopStream"
+						command: "startStream"
 					}),
 					contentType: "application/json; charset=UTF-8"
 				})
