@@ -64,7 +64,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 				self._logger.info("Stop stream command received, pid: %s" % self._settings.get(["stream_id"]),self.process.pid)
 				self._plugin_manager.send_plugin_message(self._identifier, dict(streaming=False))
 			except Exception, e:
-				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e)))
+				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),streaming=True))
 
 	##~~ Softwareupdate hook
 	def get_update_information(self):

@@ -27,6 +27,8 @@ $(function () {
 				return;
 			}
 			
+			console.log(data);
+			
 			if(data.error) {
 				new PNotify({
 							title: 'YouTube Live Error',
