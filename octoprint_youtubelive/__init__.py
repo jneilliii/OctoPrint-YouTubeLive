@@ -45,7 +45,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			container = client.containers.get('YouTubeLive')
 			self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
 		except:
-			self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),status=True,streaming=False))
+			self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
 		
 		if command == 'startStream':
 			self._logger.info("Start stream command received for stream: %s" % self._settings.get(["stream_id"]))
