@@ -64,7 +64,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 		if command == 'stopStream':
 			try:
 				self._logger.info("Stop stream command received, pid: %s" % self._settings.get(["process"]))
-				os.kill(self._settings.get(["process"]), signal.SIGKILL)
+				os.kill(int(self._settings.get(["process"])), signal.SIGKILL)
 				self._settings.set(["process"],"")
 				self._plugin_manager.send_plugin_message(self._identifier, dict(streamStopped=True))
 			except Exception, e:
