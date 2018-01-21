@@ -33,7 +33,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 	##~~ SimpleApiPlugin mixin
 	
 	def get_api_commands(self):
-		return dict(startStream=[])
+		return dict(startStream=[],stopStream=[])
 		
 	def on_api_command(self, command, data):
 		if not user_permission.can():
