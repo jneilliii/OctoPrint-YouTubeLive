@@ -47,7 +47,6 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 				import sys
 				DETACHED_PROCESS = 0x00000008
 				cmd = [
-					sys.executable,
 					self._settings.get(["ffmpeg"])
 				]
 				if os.name == 'nt':
