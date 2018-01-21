@@ -32,7 +32,11 @@ $(function () {
 							title: 'YouTube Live Error',
 							text: data.error,
 							type: 'error',
-							hide: false
+							hide: false,
+							buttons: {
+								closer: true,
+								sticker: false
+							}
 							});
 			}
 			self.processing.remove(data.topic+'|'+data.publishcommand);
