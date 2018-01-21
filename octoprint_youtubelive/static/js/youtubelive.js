@@ -6,6 +6,13 @@ $(function () {
 		self.channel_id = ko.observable();
 		self.stream_id = ko.observable();
 		self.streaming = ko.observable();
+		self.icon = ko.pureComputed(function() {
+										return self.streaming() ? 'icon-stop' : 'icon-play';
+									});
+		self.btnclass = ko.pureComputed(function() {
+										return self.streaming() ? 'btn-primary' : 'btn-danger';
+									});							
+									
 
 		// This will get called before the youtubeliveViewModel gets bound to the DOM, but after its depedencies have
 		// already been initialized. It is especially guaranteed that this method gets called _after_ the settings
