@@ -17,7 +17,6 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			self.container = client.containers.get('YouTubeLive')
 		except Exception, e:
 			self.container = None
-			self._logger.info(str(e))
 	
 	##~~ StartupPlugin
 	def on_after_startup(self):
