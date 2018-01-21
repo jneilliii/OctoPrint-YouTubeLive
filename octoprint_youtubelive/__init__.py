@@ -13,16 +13,18 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 	
 	def __init__(self):
 		self.client = docker.from_env()
-		try:
-			self.container = client.containers.get('YouTubeLive')
-		except Exception, e:
-			self.container = None
+		self.container = None
 	
 	##~~ StartupPlugin
 	def on_after_startup(self):
-		self._logger.info("OctoPrint-YouTubeLive loaded!")
-		if self.container:
+		self._logger.info("OctoPrint-YouTubeLive loaded! Checking stream status.")
+		try:
+			self.container = self.client.containers.get('YouTubeLive')
+			self._logger.info("%s is streaming " % self.container.name)
 			self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
+		except Exception, e:
+			self._logger.error(str(e))
+			self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
 	
 	##~~ TemplatePlugin
 	def get_template_configs(self):
@@ -62,7 +64,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			self._logger.info("Stop stream command received.")
 			if self.container:
 				try:
-					container.stop()
+					self.container.stop()
 					self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
 				except Exception, e:
 					self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),status=True,streaming=False))
