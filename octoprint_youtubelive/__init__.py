@@ -65,6 +65,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			if self.container:
 				try:
 					self.container.stop()
+					self.container = None
 					self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
 				except Exception, e:
 					self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),status=True,streaming=False))
