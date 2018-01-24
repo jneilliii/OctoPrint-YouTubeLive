@@ -1,5 +1,4 @@
 **Install docker**
-
     curl -sSL https://get.docker.com | sh
     sudo usermod pi -aG docker
     reboot
