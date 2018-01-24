@@ -6,6 +6,7 @@ $(function () {
 		self.channel_id = ko.observable();
 		self.stream_id = ko.observable();
 		self.streaming = ko.observable();
+		self.processing = ko.observable(false);
 		self.icon = ko.pureComputed(function() {
 										return self.streaming() ? 'icon-stop' : 'icon-play';
 									});
@@ -44,9 +45,6 @@ $(function () {
 				return;
 			}
 			
-			console.log(data);
-			console.log("streaming: "+self.streaming())
-			
 			if(data.error) {
 				new PNotify({
 							title: 'YouTube Live Error',
@@ -68,9 +66,12 @@ $(function () {
 				}
 				
 			}
+			
+			self.processing(false);
         };
 		
 		self.toggleStream = function() {
+			self.processing(true);
 			if (self.streaming()) {
 				$.ajax({
 					url: API_BASEURL + "plugin/youtubelive",
