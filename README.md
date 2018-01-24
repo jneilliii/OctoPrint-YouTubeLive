@@ -1,5 +1,5 @@
 # OctoPrint-YouTubeLive
-**Overview:** Plugin that adds a tab to OctoPrint for viewing, starting, and stopping YouTube Live streams. 
+**Overview:** Plugin that adds a tab to OctoPrint for viewing, starting, and stopping a YouTube Live stream. 
 
 **Details:** Based on the work found [here](https://blog.alexellis.io/live-stream-with-docker/). Currently tested with Octoprint running on a Raspberry Pi Zero W and on a Pi3. 
 
