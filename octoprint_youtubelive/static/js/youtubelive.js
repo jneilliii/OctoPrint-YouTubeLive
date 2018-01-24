@@ -8,7 +8,20 @@ $(function () {
 		self.streaming = ko.observable();
 		self.processing = ko.observable(false);
 		self.icon = ko.pureComputed(function() {
-										return self.streaming() ? 'icon-stop' : 'icon-play';
+										var icons = [];
+										if (self.streaming() && !self.processing()) {
+											icons.push('icon-stop');
+										} 
+										
+										if (!self.streaming() && !self.processing()){
+											icons.push('icon-play');
+										}
+										
+										if (self.processing()) {
+											icons.push('icon-spin icon-spinner');
+										} 
+										
+										return icons.join(' ');
 									});
 		self.btnclass = ko.pureComputed(function() {
 										return self.streaming() ? 'btn-primary' : 'btn-danger';
