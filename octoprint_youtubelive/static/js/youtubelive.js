@@ -18,7 +18,7 @@ $(function () {
 										}
 										
 										if (self.processing()) {
-											icons.push('icon-spin icon-spinner disabled');
+											icons.push('icon-spin icon-spinner');
 										} 
 										
 										return icons.join(' ');
