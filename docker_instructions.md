@@ -17,7 +17,7 @@
 	
 **Test**
 
-Set up your stream on the [YouTube Live Dashboard](https://www.youtube.com/live_dashboard) and enter your stream id in the command below.
+Set up your stream on the [YouTube Live Dashboard](https://www.youtube.com/live_dashboard) and enter your stream id in the command below in place of xxxx-xxxx-xxxx-xxxx.
 
     docker run --privileged --name YouTubeLive -ti octoprint/youtubelive:latest http://localhost:8080/?action=stream xxxx-xxxx-xxxx-xxxx
 
