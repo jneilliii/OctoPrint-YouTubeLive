@@ -35,6 +35,7 @@ $(function () {
 			self.channel_id(self.settingsViewModel.settings.plugins.youtubelive.channel_id());
 			self.stream_id(self.settingsViewModel.settings.plugins.youtubelive.stream_id());
 			self.processing((self.stream_id().length == 0) ? true : false);
+			console.log(self.stream_id().length);
 		};
 
 		self.onEventSettingsUpdated = function (payload) {            
