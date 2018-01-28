@@ -55,7 +55,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			self._logger.info("Start stream command received for stream: %s" % self._settings.get(["stream_id"]))
 			if not self.container:
 				try:
-					self.container = self.client.containers.run("octoprint/youtubelive:latest",command=[self._settings.global_get(["webcam","stream"]),"pbea-b3pr-8513-40mh"],detach=True,privileged=True,name="YouTubeLive",auto_remove=True)
+					self.container = self.client.containers.run("octoprint/youtubelive:latest",command=[self._settings.global_get(["webcam","stream"]),self._settings.get(["stream_id"])],detach=True,privileged=True,name="YouTubeLive",auto_remove=True)
 					self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
 				except Exception, e:
 					self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),status=True,streaming=False))
