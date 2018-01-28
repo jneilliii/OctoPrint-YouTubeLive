@@ -34,6 +34,9 @@ $(function () {
 		self.onBefireBinding = function () {
 			self.channel_id(self.settingsViewModel.settings.plugins.youtubelive.channel_id());
 			self.stream_id(self.settingsViewModel.settings.plugins.youtubelive.stream_id());
+			if(self.stream_id().length == 0){
+				self.processing(true);
+			}
 		};
 
 		self.onEventSettingsUpdated = function (payload) {            
