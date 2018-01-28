@@ -34,14 +34,13 @@ $(function () {
 		self.onBefireBinding = function () {
 			self.channel_id(self.settingsViewModel.settings.plugins.youtubelive.channel_id());
 			self.stream_id(self.settingsViewModel.settings.plugins.youtubelive.stream_id());
-			self.processing((self.stream_id().length == 0) ? true : false);
-			console.log(self.stream_id().length);
+			self.processing((self.settingsViewModel.settings.plugins.youtubelive.stream_id().length == 0) ? true : false);
 		};
 
 		self.onEventSettingsUpdated = function (payload) {            
             self.channel_id(self.settingsViewModel.settings.plugins.youtubelive.channel_id());
 			self.stream_id(self.settingsViewModel.settings.plugins.youtubelive.stream_id());
-			self.processing((self.stream_id().length == 0) ? true : false);
+			self.processing((self.settingsViewModel.settings.plugins.youtubelive.stream_id().length == 0) ? true : false);
         };
 		
 		self.onAfterBinding = function() {
