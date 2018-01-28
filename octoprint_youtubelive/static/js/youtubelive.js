@@ -6,7 +6,7 @@ $(function () {
 		self.channel_id = ko.observable();
 		self.stream_id = ko.observable();
 		self.streaming = ko.observable();
-		self.processing = ko.observable(false);
+		self.processing = ko.observable();
 		self.icon = ko.pureComputed(function() {
 										var icons = [];
 										if (self.streaming() && !self.processing()) {
@@ -34,14 +34,13 @@ $(function () {
 		self.onBefireBinding = function () {
 			self.channel_id(self.settingsViewModel.settings.plugins.youtubelive.channel_id());
 			self.stream_id(self.settingsViewModel.settings.plugins.youtubelive.stream_id());
-			if(self.stream_id().length == 0){
-				self.processing(true);
-			}
+			self.processing((self.stream_id().length == 0) ? true : false);
 		};
 
 		self.onEventSettingsUpdated = function (payload) {            
             self.channel_id(self.settingsViewModel.settings.plugins.youtubelive.channel_id());
 			self.stream_id(self.settingsViewModel.settings.plugins.youtubelive.stream_id());
+			self.processing((self.stream_id().length == 0) ? true : false);
         };
 		
 		self.onAfterBinding = function() {
