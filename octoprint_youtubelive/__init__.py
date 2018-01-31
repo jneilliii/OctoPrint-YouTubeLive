@@ -55,6 +55,9 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			self._logger.info("Start stream command received for stream: %s" % self._settings.get(["stream_id"]))
 			if not self.container:
 				filters = []
+				self._logger.info(self._settings.global_get(["webcam","flipH"]))
+				self._logger.info(self._settings.global_get(["webcam","flipV"]))
+				self._logger.info(self._settings.global_get(["webcam","rotate90"]))
 				if self._settings.global_get(["webcam","flipH"]):
 					filters.append("hflip")
 					self._logger.info(filters)
