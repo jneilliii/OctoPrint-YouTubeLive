@@ -57,12 +57,16 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 				filters = []
 				if self._settings.global_get(["webcam","flipH"]):
 					filters.append("hflip")
+					self._logger.info(filters)
 				if self._settings.global_get(["webcam","flipV"]):
 					filters.append("vflip")
+					self._logger.info(filters)
 				if self._settings.global_get(["webcam","rotate90"]):
-					filters.append("transpose=2")
+					filters.append("transpose=cclock")
+					self._logger.info(filters)
 				if len(filters) == 0:
 					filters.append("null")
+					self._logger.info(filters)
 				try:
 					self.container = self.client.containers.run("octoprint/youtubelive:latest",command=[self._settings.global_get(["webcam","stream"]),self._settings.get(["stream_id"]),",".join(filters)],detach=True,privileged=True,name="YouTubeLive",auto_remove=True)
 					self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
