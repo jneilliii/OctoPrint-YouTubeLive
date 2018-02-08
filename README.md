@@ -14,4 +14,9 @@ Once installed enter your YouTube's channel id ([Advanced Account Settings](http
 <img src="https://raw.githubusercontent.com/jneilliii/Octoprint-YouTubeLive/master/settings_screenshot.jpg">
 
 ## TODO:
-* [ ] Additional testing.
+* [X] Additional testing.
+
+## Support My Efforts
+I programmed this plugin for fun and do my best effort to support those that have issues with it, please return the favor and support me.
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/jneilliii)
