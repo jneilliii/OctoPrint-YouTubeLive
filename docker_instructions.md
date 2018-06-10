@@ -31,5 +31,5 @@ Stream should go live and re-encode the OctoPrint stream to YouTube.  Once verif
 - Enter your stream id used above in the OctoPrint-YouTubeLive plugin settings.
 - Change your webcam stream url to a fully quliafied url using the ip address of your pi like
 
-    http://192.168.1.2:8080/?action=stream
+    `http://192.168.1.101/webcam/?action=stream`
 	
