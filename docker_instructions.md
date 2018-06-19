@@ -6,7 +6,7 @@
 
 **Pull Docker Image**
 
-    docker pull alexellis2/streaming:17-5-2017
+    docker pull alexellis2/streaming:07-05-2018
 	
 **Clone Repository and Rebuild**
 
