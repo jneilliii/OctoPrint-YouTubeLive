@@ -9,13 +9,15 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 				octoprint.plugin.TemplatePlugin,
 				octoprint.plugin.AssetPlugin,
                 octoprint.plugin.SettingsPlugin,
-				octoprint.plugin.SimpleApiPlugin):
+				octoprint.plugin.SimpleApiPlugin,
+				octoprint.plugin.EventHandlerPlugin):
 	
 	def __init__(self):
 		self.client = docker.from_env()
 		self.container = None
 	
 	##~~ StartupPlugin
+	
 	def on_after_startup(self):
 		self._logger.info("OctoPrint-YouTubeLive loaded! Checking stream status.")
 		try:
@@ -27,10 +29,12 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
 	
 	##~~ TemplatePlugin
+	
 	def get_template_configs(self):
 		return [dict(type="settings",custom_bindings=False)]
 		
 	##~~ AssetPlugin
+	
 	def get_assets(self):
 		return dict(
 			js=["js/youtubelive.js"],
@@ -38,10 +42,11 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 		)
 		
 	##~~ SettingsPlugin
+	
 	def get_settings_defaults(self):
-		return dict(channel_id="",stream_id="",streaming=False)
+		return dict(channel_id="",stream_id="",streaming=False,auto_start=False)
 		
-	##~~ SimpleApiPlugin mixin
+	##~~ SimpleApiPlugin
 	
 	def get_api_commands(self):
 		return dict(startStream=[],stopStream=[],checkStream=[])
@@ -53,39 +58,58 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 		
 		if command == 'startStream':
 			self._logger.info("Start stream command received.")
-			if not self.container:
-				filters = []
-				if self._settings.global_get(["webcam","flipH"]):
-					filters.append("hflip")
-				if self._settings.global_get(["webcam","flipV"]):
-					filters.append("vflip")
-				if self._settings.global_get(["webcam","rotate90"]):
-					filters.append("transpose=cclock")
-				if len(filters) == 0:
-					filters.append("null")
-				try:
-					self.container = self.client.containers.run("octoprint/youtubelive:latest",command=[self._settings.global_get(["webcam","stream"]),self._settings.get(["stream_id"]),",".join(filters)],detach=True,privileged=True,name="YouTubeLive",auto_remove=True)
-					self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
-				except Exception, e:
-					self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),status=True,streaming=False))
-			return
+			self.startStream()
+
 		if command == 'stopStream':
 			self._logger.info("Stop stream command received.")
-			if self.container:
-				try:
-					self.container.stop()
-					self.container = None
-					self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
-				except Exception, e:
-					self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),status=True,streaming=False))
-			else:
-				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
+			self.stopStream()
+
 		if command == 'checkStream':
 			self._logger.info("Checking stream status.")
 			if self.container:
 				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
 			else:
 				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
+				
+	##-- EventHandlerPlugin
+	
+	def on_event(self, event, payload):
+		if event == "PrintStarted" and self._settings.get(["auto_start"]):
+			self.startStream()
+			
+		if event in ["PrintDone","PrintCancelled"] and self._settings.get(["auto_start"]):
+			self.stopStream()
+			
+	##-- Utility Functions
+	
+	def startStream(self):
+		if not self.container:
+			filters = []
+			if self._settings.global_get(["webcam","flipH"]):
+				filters.append("hflip")
+			if self._settings.global_get(["webcam","flipV"]):
+				filters.append("vflip")
+			if self._settings.global_get(["webcam","rotate90"]):
+				filters.append("transpose=cclock")
+			if len(filters) == 0:
+				filters.append("null")
+			try:
+				self.container = self.client.containers.run("octoprint/youtubelive:latest",command=[self._settings.global_get(["webcam","stream"]),self._settings.get(["stream_id"]),",".join(filters)],detach=True,privileged=True,name="YouTubeLive",auto_remove=True)
+				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
+			except Exception, e:
+				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),status=True,streaming=False))
+		return
+		
+	def stopStream(self):
+		if self.container:
+			try:
+				self.container.stop()
+				self.container = None
+				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
+			except Exception, e:
+				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),status=True,streaming=False))
+		else:
+			self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
 
 	##~~ Softwareupdate hook
 	def get_update_information(self):

@@ -7,6 +7,7 @@ $(function () {
 		self.stream_id = ko.observable();
 		self.streaming = ko.observable();
 		self.processing = ko.observable(false);
+		self.view_url = ko.observable();
 		self.icon = ko.pureComputed(function() {
 										var icons = [];
 										if (self.streaming() && !self.processing()) {
@@ -51,6 +52,14 @@ $(function () {
 					}),
 					contentType: "application/json; charset=UTF-8"
 				})
+		}
+		
+		self.onTabChange = function(next, current) {
+			if(next == '#tab_plugin_youtubelive'){
+				self.view_url('https://www.youtube.com/embed/live_stream?channel=' + self.settingsViewModel.settings.plugins.youtubelive.channel_id());
+			} else {
+				self.view_url('');
+			}
 		}
 		
 		self.onDataUpdaterPluginMessage = function(plugin, data) {
