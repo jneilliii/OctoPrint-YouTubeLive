@@ -7,6 +7,7 @@ $(function () {
 		self.stream_id = ko.observable();
 		self.streaming = ko.observable();
 		self.processing = ko.observable(false);
+		self.view_url = ko.observable();
 		self.icon = ko.pureComputed(function() {
 										var icons = [];
 										if (self.streaming() && !self.processing()) {
@@ -25,7 +26,7 @@ $(function () {
 									});
 		self.btnclass = ko.pureComputed(function() {
 										return self.streaming() ? 'btn-primary' : 'btn-danger';
-									});							
+									});
 									
 
 		// This will get called before the youtubeliveViewModel gets bound to the DOM, but after its depedencies have
@@ -51,6 +52,17 @@ $(function () {
 					}),
 					contentType: "application/json; charset=UTF-8"
 				})
+		}
+		
+		self.onTabChange = function(next, current) {
+			if(next == '#tab_plugin_youtubelive'){
+				if(self.settingsViewModel.settings.webcam.streamRatio() == '4:3'){
+					$('#youtubelive_wrapper').css('padding-bottom','75%');
+				}
+				self.view_url('https://www.youtube.com/embed/live_stream?channel=' + self.settingsViewModel.settings.plugins.youtubelive.channel_id());
+			} else {
+				self.view_url('');
+			}
 		}
 		
 		self.onDataUpdaterPluginMessage = function(plugin, data) {

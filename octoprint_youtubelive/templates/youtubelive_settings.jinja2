@@ -12,4 +12,10 @@
             <input type="text" class="input-block-level" data-bind="value: settings.plugins.youtubelive.stream_id" placeholder="Enter your personal live stream id here">
         </div>
     </div>
+    <div class="control-group" data-bind="visible: settings.plugins.youtubelive.stream_id().length > 0">
+        <label class="control-label">{{ _('Stream While Printing') }}</label>
+        <div class="controls">
+            <input class="input-checkbox" type="checkbox" data-bind="checked: settings.plugins.youtubelive.auto_start"></input>
+        </div>
+    </div>
 </form>
