@@ -19,7 +19,7 @@
 
 Set up your stream on the [YouTube Live Dashboard](https://www.youtube.com/live_dashboard) and enter your stream id and IP address in the command below in place of xxxx-xxxx-xxxx-xxxx and <ip>.
 
-    docker run --device=/dev/vchiq --name YouTubeLive -ti octoprint/youtubelive:latest http://<ip>:8080/?action=stream xxxx-xxxx-xxxx-xxxx null
+    docker run --device=/dev/vchiq --network="host" --name YouTubeLive -ti octoprint/youtubelive:latest http://<ip>:8080/?action=stream xxxx-xxxx-xxxx-xxxx null
 
 Stream should go live and re-encode the OctoPrint stream to YouTube.  Once verified close ffmpeg and remove docker container.
 	
