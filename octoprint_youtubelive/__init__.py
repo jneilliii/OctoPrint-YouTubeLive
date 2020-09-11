@@ -24,7 +24,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			self.container = self.client.containers.get('YouTubeLive')
 			self._logger.info("%s is streaming " % self.container.name)
 			self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
-		except Exception, e:
+		except Exception as e:
 			self._logger.error(str(e))
 			self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
 	
@@ -96,7 +96,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 			try:
 				self.container = self.client.containers.run("octoprint/youtubelive:latest",command=[self._settings.global_get(["webcam","stream"]),self._settings.get(["stream_id"]),",".join(filters)],detach=True,privileged=False,devices=["/dev/vchiq"],name="YouTubeLive",auto_remove=True,network_mode="host")
 				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
-			except Exception, e:
+			except Exception as e:
 				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),status=True,streaming=False))
 		return
 		
@@ -106,7 +106,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 				self.container.stop()
 				self.container = None
 				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
-			except Exception, e:
+			except Exception as e:
 				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),status=True,streaming=False))
 		else:
 			self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
@@ -130,6 +130,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 		)
 
 __plugin_name__ = "YouTube Live"
+__plugin_pythoncompat__ = ">=2.7,<4"
 
 def __plugin_load__():
 	global __plugin_implementation__
