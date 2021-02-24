@@ -1,4 +1,8 @@
-<div id="youtubelive_wrapper">
+<div class="row-fluid" data-bind="visible: settingsViewModel.settings.plugins.youtubelive.channel_id().length == 0 && settingsViewModel.settings.plugins.youtubelive.stream_id().length == 0">
+    Open the plugin's settings by clicking <a href="#" data-bind="click: function(){ settingsViewModel.show('#settings_plugin_youtubelive'); }">here</a> to configure required options.
+</div>
+
+<div id="youtubelive_wrapper" data-bind="visible: settingsViewModel.settings.plugins.youtubelive.channel_id().length > 0">
 	<iframe data-bind="attr: {src: view_url()}" frameborder="0" allowfullscreen></iframe>
 </div>
 <div class="row-fluid btn-group" style="text-align: center;padding-top: 20px;" data-bind="visible: settingsViewModel.settings.plugins.youtubelive.stream_id().length > 0">
