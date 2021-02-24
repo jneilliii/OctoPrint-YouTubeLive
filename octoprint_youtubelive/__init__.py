@@ -50,7 +50,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 					stream_id="",
 					streaming=False,
 					auto_start=False,
-					ffmpeg_cmd_options="-re -f mjpeg -framerate 5 -i http://octopi.local/webcam/?action=stream -ar 44100 -ac 2 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -acodec aac -ab 128k -strict experimental -vcodec h264 -pix_fmt yuv420p -g 10 -vb 700k -framerate 5")
+					ffmpeg_cmd_options="-re -threads 1 -f mjpeg -framerate 5 -i http://localhost:8080/?action=stream -ar 44100 -ac 2 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -acodec aac -ab 128k -strict experimental -vcodec h264 -pix_fmt yuv420p -g 10 -vb 700k -framerate 5")
 		
 	##~~ SimpleApiPlugin
 	
@@ -73,9 +73,9 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 		if command == 'checkStream':
 			self._logger.info("Checking stream status.")
 			if self.container:
-				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
+				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True, streaming=True))
 			else:
-				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
+				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True, streaming=False))
 				
 	##-- EventHandlerPlugin
 	
