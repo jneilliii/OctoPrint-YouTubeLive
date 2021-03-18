@@ -104,7 +104,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 				ffmpeg_cmd = "{} {} -f flv rtmp://a.rtmp.youtube.com/live2/{}".format(self._settings.global_get(["webcam", "ffmpeg"]), self._settings.get(["ffmpeg_cmd_options"]), self._settings.get(["stream_id"]))
 				# replace this with actual subprocess command
 				FNULL = open(os.devnull, 'w')
-				self.container = subprocess.Popen(ffmpeg_cmd.split(' '), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=FNULL)
+				self.container = subprocess.Popen(ffmpeg_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
 				self._logger.info(ffmpeg_cmd)
 				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True, streaming=True))
 			except Exception as e:
@@ -114,7 +114,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 	def stopStream(self):
 		if self.container:
 			try:
-				self.container.terminate()
+				self.container.kill()
 				self.container = None
 				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True, streaming=False))
 			except Exception as e:
