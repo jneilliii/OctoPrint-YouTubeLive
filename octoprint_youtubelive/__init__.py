@@ -4,6 +4,10 @@ from __future__ import absolute_import
 import os
 import subprocess
 import shlex
+import threading
+from collections import deque
+from threading import Thread
+
 import flask
 import octoprint.plugin
 from octoprint.access.permissions import Permissions, ADMIN_GROUP
@@ -21,6 +25,8 @@ class youtubelive(octoprint.plugin.StartupPlugin,
     def __init__(self):
         # self.client = docker.from_env()
         self.container = None
+        self.stream_thread = threading.Thread(target=self.start_stream)
+        self.stream_thread.daemon = True
 
     ##~~ StartupPlugin
 
@@ -68,7 +74,8 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 
         if command == 'startStream':
             self._logger.info("Start stream command received.")
-            self.start_stream()
+            if not self.stream_thread.isAlive():
+                self.stream_thread.start()
 
         if command == 'stopStream':
             self._logger.info("Stop stream command received.")
@@ -85,7 +92,8 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 
     def on_event(self, event, payload):
         if event == "PrintStarted" and self._settings.get(["auto_start"]):
-            self.start_stream()
+            if not self.stream_thread.isAlive():
+                self.stream_thread.start()
 
         if event in ["PrintDone", "PrintCancelled"] and self._settings.get(["auto_start"]):
             self.stop_stream()
@@ -110,21 +118,22 @@ class youtubelive(octoprint.plugin.StartupPlugin,
                     self._settings.get(["stream_id"]))
                 # replace this with actual subprocess command
                 FNULL = open(os.devnull, 'w')
-                # self.container = subprocess.Popen(shlex.split(ffmpeg_cmd), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+                # container = subprocess.Popen(shlex.split(ffmpeg_cmd, posix=(os.name == "posix")), stdout=subprocess.PIPE, stderr=FNULL, universal_newlines=True)
                 self.container = CommandlineCaller()
-                self.container.on_log_call = self.log_call
-                self.container.on_log_stdout = self.log_stdout
                 self.container.on_log_stderr = self.log_stderr
+                self.container.on_log_stdout = self.log_stdout
+                self.container.on_log_call = self.log_call
                 try:
-                    self.container.call(ffmpeg_cmd, delimiter=b"\r", buffer_size=512)
+                    self.container.checked_call(ffmpeg_cmd)  # shlex.split(ffmpeg_cmd, posix=(os.name == "posix"))
                 except CommandlineError as err:
                     self._logger.debug("Command  \"{}\" returned {}".format(ffmpeg_cmd, err.returncode))
+                    self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(err), status=True, streaming=False))
                 else:
-                    self._logger.debug("Command \"{}\" started.".format(ffmpeg_cmd))
-                    self._plugin_manager.send_plugin_message(self._identifier, dict(status=True, streaming=True))
+                    self._logger.debug("Command \"{}\" errored.".format(ffmpeg_cmd))
+                    self._plugin_manager.send_plugin_message(self._identifier, dict(error="Couldn't start.", status=True, streaming=False))
             except Exception as e:
-                self._plugin_manager.send_plugin_message(self._identifier,
-                                                         dict(error=str(e), status=True, streaming=False))
+                self._logger.debug("Command \"{}\" error: {}".format(ffmpeg_cmd, e))
+                self._plugin_manager.send_plugin_message(self._identifier, dict(status=True, streaming=False))
         return
 
     def log(self, prefix, *lines):
