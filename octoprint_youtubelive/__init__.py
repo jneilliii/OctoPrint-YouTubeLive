@@ -116,7 +116,7 @@ class youtubelive(octoprint.plugin.StartupPlugin,
                 self.container.on_log_stdout = self.log_stdout
                 self.container.on_log_stderr = self.log_stderr
                 try:
-                    self.container.checked_call(ffmpeg_cmd)
+                    self.container.call(ffmpeg_cmd, delimiter=b"\r", buffer_size=512)
                 except CommandlineError as err:
                     self._logger.debug("Command  \"{}\" returned {}".format(ffmpeg_cmd, err.returncode))
                 else:
