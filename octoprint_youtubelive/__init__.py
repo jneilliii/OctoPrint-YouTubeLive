@@ -3,6 +3,7 @@ from __future__ import absolute_import
 
 import octoprint.plugin
 from octoprint.server import user_permission
+from octoprint.util import version
 import docker
 
 class youtubelive(octoprint.plugin.StartupPlugin,
@@ -85,16 +86,20 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 	def startStream(self):
 		if not self.container:
 			filters = []
-			if self._settings.global_get(["webcam","flipH"]):
+			if self._settings.global_get_boolean(["webcam", "flipH"]) or self._settings.global_get_boolean(["plugins", "classicwebcam", "flipH"]):
 				filters.append("hflip")
-			if self._settings.global_get(["webcam","flipV"]):
+			if self._settings.global_get(["webcam", "flipV"]) or self._settings.global_get_boolean(["plugins", "classicwebcam", "flipV"]):
 				filters.append("vflip")
-			if self._settings.global_get(["webcam","rotate90"]):
+			if self._settings.global_get(["webcam", "rotate90"]) or self._settings.global_get_boolean(["plugins", "classicwebcam", "rotate90"]):
 				filters.append("transpose=cclock")
 			if len(filters) == 0:
 				filters.append("null")
 			try:
-				self.container = self.client.containers.run("octoprint/youtubelive:latest",command=[self._settings.global_get(["webcam","stream"]),self._settings.get(["stream_id"]),",".join(filters)],detach=True,privileged=False,devices=["/dev/vchiq"],name="YouTubeLive",auto_remove=True,network_mode="host")
+				if version.is_octoprint_compatible(">=1.9.0"):
+					stream_url = self._settings.global_get(["plugins", "classicwebcam", "stream"])
+				else:
+					stream_url = self._settings.global_get(["webcam", "stream"])
+				self.container = self.client.containers.run("octoprint/youtubelive:latest",command=[stream_url, self._settings.get(["stream_id"]),",".join(filters)],detach=True,privileged=False,devices=["/dev/vchiq"],name="YouTubeLive",auto_remove=True,network_mode="host")
 				self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=True))
 			except Exception as e:
 				self._plugin_manager.send_plugin_message(self._identifier, dict(error=str(e),status=True,streaming=False))
