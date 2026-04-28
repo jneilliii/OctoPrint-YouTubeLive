@@ -2,7 +2,7 @@
 from __future__ import absolute_import
 
 import octoprint.plugin
-from octoprint.server import user_permission
+from octoprint.access.permissions import Permissions, ADMIN_GROUP
 from octoprint.util import version
 import docker
 
@@ -33,6 +33,9 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 	
 	def get_template_configs(self):
 		return [dict(type="settings",custom_bindings=False)]
+
+	def is_template_autoescaped(self):
+		return True
 		
 	##~~ AssetPlugin
 	
@@ -48,12 +51,15 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 		return dict(channel_id="",stream_id="",streaming=False,auto_start=False)
 		
 	##~~ SimpleApiPlugin
+
+	def is_api_protected(self):
+		return True
 	
 	def get_api_commands(self):
 		return dict(startStream=[],stopStream=[],checkStream=[])
 		
 	def on_api_command(self, command, data):
-		if not user_permission.can():
+		if not Permissions.PLUGIN_YOUTUBELIVE_CONTROL.can():
 			from flask import make_response
 			return make_response("Insufficient rights", 403)
 		
@@ -116,6 +122,18 @@ class youtubelive(octoprint.plugin.StartupPlugin,
 		else:
 			self._plugin_manager.send_plugin_message(self._identifier, dict(status=True,streaming=False))
 
+	# ~~ Access Permissions Hook
+
+	def get_additional_permissions(self, *args, **kwargs):
+		return [
+			dict(key="CONTROL",
+			     name="Control Stream",
+			     description=gettext("Allows control of the stream."),
+			     roles=["admin"],
+			     dangerous=True,
+			     default_groups=[ADMIN_GROUP])
+		]
+
 	##~~ Softwareupdate hook
 	def get_update_information(self):
 		return dict(
@@ -143,5 +161,6 @@ def __plugin_load__():
 
 	global __plugin_hooks__
 	__plugin_hooks__ = {
+		"octoprint.access.permissions": __plugin_implementation__.get_additional_permissions,
 		"octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information
 	}

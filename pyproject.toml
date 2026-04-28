@@ -1,0 +1,44 @@
+[build-system]
+requires = [
+    "setuptools>=68",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "YouTube-Live"
+version = "0.5.4"
+description = "A plugin to allow streaming live to YouTube."
+authors = [
+    { name = "jneilliii", email = "jneilliii+octoprint@gmail.com" },
+]
+requires-python = ">=3.7,<4"
+dependencies = [
+    "docker==2.7.0",
+]
+dynamic = [
+    "license",
+]
+
+[project.entry-points."octoprint.plugin"]
+youtubelive = "octoprint_youtubelive"
+
+[project.urls]
+Homepage = "https://github.com/jneilliii/OctoPrint-YouTubeLive"
+
+[project.optional-dependencies]
+develop = [
+    "go-task-bin",
+]
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = [
+    "octoprint_youtubelive",
+    "octoprint_youtubelive.*",
+]

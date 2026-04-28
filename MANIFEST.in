@@ -1,1 +1,4 @@
 include README.md
+recursive-include octoprint_youtubelive/templates *
+recursive-include octoprint_youtubelive/translations *
+recursive-include octoprint_youtubelive/static *
