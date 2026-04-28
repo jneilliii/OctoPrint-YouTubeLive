@@ -2,6 +2,7 @@
 from __future__ import absolute_import
 
 import octoprint.plugin
+from flask_babel import gettext
 from octoprint.access.permissions import Permissions, ADMIN_GROUP
 from octoprint.util import version
 import docker

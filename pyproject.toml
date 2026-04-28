@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "YouTube-Live"
-version = "0.5.4"
+version = "0.5.5"
 description = "A plugin to allow streaming live to YouTube."
 authors = [
     { name = "jneilliii", email = "jneilliii+octoprint@gmail.com" },
