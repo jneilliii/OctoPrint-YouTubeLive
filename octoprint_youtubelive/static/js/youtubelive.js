@@ -74,6 +74,7 @@ $(function () {
 				new PNotify({
 							title: 'YouTube Live Error',
 							text: data.error,
+							text_escape: true,
 							type: 'error',
 							hide: false,
 							buttons: {
